@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+    <title>Layout Dialect Example</title>
+</head>
+<body>
+
+<section layout:fragment="custom-content">
+    <form action="#" th:action="@{/create}" th:object="${season}" method="post">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{name}"/></td>
+            </tr>
+        </table>
+        <input type="submit" value="Save"/>
+    </form>
+</section>
+
+<footer>
+    <p layout:fragment="custom-footer">This is some footer content that you can change</p>
+</footer>
+
+</body>
+</html>

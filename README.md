@@ -1,1 +1,1 @@
-# f1-bet-competition
+# f1-betting
