@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="admin/layout">
+<head>
+    <title>Create Season</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <h1 class="page-header">Create Season</h1>
+
+    <form action="#" th:action="@{create}" th:object="${season}" method="post">
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div class="text-right">
+                    <a class="btn btn-primary" th:href="@{/admin/season/list}">Back</a>
+                    <input type="submit" class="btn btn-success" value="Save"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tbody>
+                        <tr>
+                            <td>Name:</td>
+                            <td><input type="text" th:field="*{name}"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+</body>
+</html>

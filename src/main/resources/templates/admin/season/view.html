@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="admin/layout">
+<head>
+    <title>Season View</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <h1 class="page-header" th:text="${season.name}"></h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-right">
+                <a class="btn btn-primary" th:href="@{/admin/season/list}">Back</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-20">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td th:text="${season.name}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

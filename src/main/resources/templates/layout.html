@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Title</title>
+    <title>F1 Betting</title>
 </head>
 <body>
-<header>
-    <h1>New dialect example</h1>
-</header>
-<section layout:fragment="custom-content">
-    <p>Your page content goes here</p>
-</section>
-<footer>
-    <p>My custom footer</p>
-    <p layout:fragment="custom-footer">Your custom footer here</p>
-</footer>
+<div id="wrapper">
+
+    <header layout:fragment="header"></header>
+
+    <div id="page-wrapper" style="min-height: 500px">
+        <div class="container-fluid">
+            <section layout:fragment="content"></section>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>

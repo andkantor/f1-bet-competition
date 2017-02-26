@@ -1,6 +1,7 @@
 package andkantor.f1betting.model.race;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="season")
@@ -13,12 +14,12 @@ public class Season {
     @Column(name = "name")
     private String name;
 
-//    private List<Race> races;
-//    private List<Racer> racers;
-//    private List<Team> teams;
+    @Column(name = "created")
+    private LocalDateTime created;
 
-
-    public Season() {}
+    public Season() {
+        created = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -34,5 +35,9 @@ public class Season {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
     }
 }

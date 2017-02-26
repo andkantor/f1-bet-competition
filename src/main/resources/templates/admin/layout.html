@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap/sb-admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+    <title>Admin Page</title>
+</head>
+<body>
+
+<header layout:fragment="header">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/admin/home}">F1 Betting</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li><a href="#" th:href="@{/admin/home}">Home</a></li>
+                <li><a href="#" th:href="@{/admin/season/list}">Seasons</a></li>
+                <li><a href="#" th:href="@{/admin/race/list}">Races</a></li>
+                <li><a href="#" th:href="@{/admin/racer/list}">Racers</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+</body>
+</html>
