@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Controller
-@RequestMapping(value = "/admin/season")
-public class SeasonController {
+@RequestMapping(value = "/admin/season/{seasonId}/race")
+public class RaceController {
 
     @Autowired
     SeasonRepository seasonRepository;
@@ -25,30 +25,25 @@ public class SeasonController {
     RaceRepository raceRepository;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String getCreate(Season season, Model model) {
-        model.addAttribute("season", season);
-        return "admin/season/create";
+    public String getCreate(Race race, Model model) {
+        model.addAttribute("race", race);
+        return "admin/race/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String postCreate(@Valid Season season) {
-        seasonRepository.save(season);
-        return "redirect:/admin/season/list";
+    public String postCreate(@PathVariable Long seasonId, Race race) {
+        Season season = seasonRepository.findOne(seasonId);
+        race.setSeason(season);
+        // TODO set with form value
+        race.setStartDateTime(LocalDateTime.now());
+        raceRepository.save(race);
+        return "redirect:/admin/season/" + seasonId + "/view";
     }
 
-    @RequestMapping("/list")
-    public String list(Model model) {
-        Iterable<Season> seasons = seasonRepository.findAll();
-        model.addAttribute("seasons", seasons);
-        return "admin/season/list";
-    }
-
-    @RequestMapping("/{id}/view")
+    @RequestMapping("/view/{id}")
     public String list(@PathVariable Long id, Model model) {
-        Season season = seasonRepository.findOne(id);
-        List<Race> races = raceRepository.findBySeason(season);
-        model.addAttribute("season", season);
-        model.addAttribute("races", races);
-        return "admin/season/view";
+        Race race = raceRepository.findOne(id);
+        model.addAttribute("race", race);
+        return "admin/race/view";
     }
 }

@@ -21,19 +21,6 @@
     <div class="row top-20">
         <div class="col-xs-12">
             <h3>Races</h3>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="text-right">
-                <a class="btn btn-primary" th:href="@{/admin/season/{id}/race/create(id=${season.id})}">Create Race</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row top-20">
-        <div class="col-xs-12">
             <div th:if="${races.size() == 0}">There is not race added yet.</div>
             <div th:if="${races.size() > 0}" class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -41,7 +28,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Location</th>
-                        <th>Start Date and Time</th>
+                        <th>DateTime</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -61,6 +48,7 @@
     <div class="row top-20">
         <div class="col-xs-12">
             <h3>Racers</h3>
+
         </div>
     </div>
 

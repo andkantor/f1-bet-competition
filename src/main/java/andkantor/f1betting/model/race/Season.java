@@ -14,11 +14,11 @@ public class Season {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "created")
-    private LocalDateTime created;
+    @Column(name = "date_created")
+    private LocalDateTime dateCreated;
 
     public Season() {
-        created = LocalDateTime.now();
+        dateCreated = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -37,7 +37,7 @@ public class Season {
         this.name = name;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 }

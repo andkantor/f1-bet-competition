@@ -10,11 +10,11 @@
 <section layout:fragment="content">
     <h1 class="page-header">Create Season</h1>
 
-    <form action="#" th:action="@{create}" th:object="${season}" method="post">
+    <form action="#" th:action="@{create}" th:object="${race}" method="post">
         <div class="row top-20">
             <div class="col-xs-12">
                 <div class="text-right">
-                    <a class="btn btn-primary" th:href="@{/admin/season/list}">Back</a>
+                    <a class="btn btn-primary" th:href="@{/admin/race/list}">Back</a>
                     <input type="submit" class="btn btn-success" value="Save"/>
                 </div>
             </div>
@@ -26,6 +26,14 @@
                     <label>Name</label>
                     <input class="form-control" type="text" th:field="*{name}" />
                 </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input class="form-control" type="text" th:field="*{location}" />
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label>Start date and time</label>-->
+                    <!--<input class="form-control" type="datetime" th:field="*{startDateTime}" />-->
+                <!--</div>-->
             </div>
         </div>
     </form>
