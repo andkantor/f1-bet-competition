@@ -44,7 +44,7 @@ public class SeasonController {
     }
 
     @RequestMapping("/{id}/view")
-    public String list(@PathVariable Long id, Model model) {
+    public String view(@PathVariable Long id, Model model) {
         Season season = seasonRepository.findOne(id);
         List<Race> races = raceRepository.findBySeason(season);
         model.addAttribute("season", season);

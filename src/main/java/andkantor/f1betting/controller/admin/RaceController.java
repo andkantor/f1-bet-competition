@@ -41,7 +41,7 @@ public class RaceController {
     }
 
     @RequestMapping("/view/{id}")
-    public String list(@PathVariable Long id, Model model) {
+    public String view(@PathVariable Long id, Model model) {
         Race race = raceRepository.findOne(id);
         model.addAttribute("race", race);
         return "admin/race/view";
