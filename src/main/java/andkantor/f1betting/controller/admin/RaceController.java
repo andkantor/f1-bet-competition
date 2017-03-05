@@ -4,10 +4,10 @@ import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.FinalPosition;
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.Season;
-import andkantor.f1betting.model.race.*;
+import andkantor.f1betting.model.race.RaceResult;
+import andkantor.f1betting.repository.DriverRepository;
 import andkantor.f1betting.repository.FinalPositionRepository;
 import andkantor.f1betting.repository.RaceRepository;
-import andkantor.f1betting.repository.DriverRepository;
 import andkantor.f1betting.repository.SeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -50,8 +49,6 @@ public class RaceController {
     public String postCreate(@PathVariable Long seasonId, @Valid Race race) {
         Season season = seasonRepository.findOne(seasonId);
         race.setSeason(season);
-        // TODO set with form value
-        race.setStartDateTime(LocalDateTime.now());
         raceRepository.save(race);
         return "redirect:/admin/season/" + seasonId + "/view";
     }
@@ -76,11 +73,7 @@ public class RaceController {
     }
 
     @RequestMapping("/{id}/saveRaceResult")
-    public String saveRaceResult(
-            @PathVariable Long seasonId,
-            @PathVariable Long id,
-            @Valid RaceResult raceResult
-    ) {
+    public String saveRaceResult(@PathVariable Long seasonId, @PathVariable Long id, @Valid RaceResult raceResult) {
         Race race = raceRepository.findOne(id);
         raceResult.getFinalPositions().forEach(finalPosition -> {
             finalPosition.setRace(race);

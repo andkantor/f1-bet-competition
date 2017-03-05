@@ -1,7 +1,11 @@
 package andkantor.f1betting.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import static andkantor.f1betting.model.DateTime.DATE_TIME_FORMAT;
 
 @Entity
 @Table(name = "race")
@@ -22,6 +26,7 @@ public class Race {
     private String location;
 
     @Column(name = "start_date_time")
+    @DateTimeFormat(pattern = DATE_TIME_FORMAT)
     private LocalDateTime startDateTime;
 
     @Column(name = "date_created")
