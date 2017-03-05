@@ -40,25 +40,40 @@ public class RaceController {
     FinalPositionRepository finalPositionRepository;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Race race, Model model) {
+    public String create(@PathVariable Long seasonId, Race race, Model model) {
+        Season season = seasonRepository.findOne(seasonId);
+        race.setSeason(season);
         model.addAttribute("race", race);
         return "admin/race/form";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@PathVariable Long seasonId, @Valid Race race) {
-        Season season = seasonRepository.findOne(seasonId);
-        race.setSeason(season);
+    public String save(@Valid Race race) {
         raceRepository.save(race);
-        return "redirect:/admin/season/" + seasonId + "/view";
+        return "redirect:/admin/season/" + race.getSeason().getId() + "/view";
+    }
+
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable Long id, Model model) {
+        Race race = raceRepository.findOne(id);
+        model.addAttribute("race", race);
+        return "admin/race/form";
+    }
+
+    @RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
+    public String save(@PathVariable Long id, @Valid Race race) {
+        race.setId(id);
+        raceRepository.save(race);
+        return "redirect:/admin/season/" + race.getSeason().getId() + "/view";
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String delete(@PathVariable Long seasonId, @PathVariable Long id) {
+    public String delete(@PathVariable Long id) {
         Race race = raceRepository.findOne(id);
         finalPositionRepository.deleteByRace(race);
         raceRepository.delete(race);
-        return "redirect:/admin/season/" + seasonId + "/view";
+
+        return "redirect:/admin/season/" + race.getSeason().getId() + "/view";
     }
 
     @RequestMapping("/{id}/view")
@@ -81,13 +96,13 @@ public class RaceController {
     }
 
     @RequestMapping("/{id}/saveRaceResult")
-    public String saveRaceResult(@PathVariable Long seasonId, @PathVariable Long id, @Valid RaceResult raceResult) {
+    public String saveRaceResult(@PathVariable Long id, @Valid RaceResult raceResult) {
         Race race = raceRepository.findOne(id);
         raceResult.getFinalPositions().forEach(finalPosition -> {
             finalPosition.setRace(race);
             finalPositionRepository.save(finalPosition);
         });
 
-        return "redirect:/admin/season/" + seasonId + "/race/" + id + "/view";
+        return "redirect:/admin/season/" + race.getSeason().getId() + "/race/" + id + "/view";
     }
 }
