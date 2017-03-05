@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="admin/layout">
+<head>
+    <title>Settings</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <h1 class="page-header">Settings</h1>
+
+    <form action="#" th:action="@{save}" th:object="${configuration}" method="post">
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div class="text-right">
+                    <input type="submit" class="btn btn-success" value="Save"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row top-20">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label>Number of drivers to bet on</label>
+                    <input class="form-control" type="text" th:field="*{numberOfDriversToBetOn}" />
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+</body>
+</html>
