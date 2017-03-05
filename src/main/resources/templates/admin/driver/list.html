@@ -26,6 +26,7 @@
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Active</th>
                         <th>Created</th>
                         <th></th>
                     </tr>
@@ -34,6 +35,7 @@
                     <tr th:each="driver : ${drivers}">
                         <td th:text="${driver.firstName}"></td>
                         <td th:text="${driver.lastName}"></td>
+                        <td th:text="${driver.active ? 'Yes' : 'No'}"></td>
                         <td th:text="${driver.dateCreated}"></td>
                         <td><a href="#" th:href="@{/admin/driver/{id}/view(id=${driver.id})}">View</a></td>
                     </tr>

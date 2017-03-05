@@ -17,6 +17,9 @@ public class Driver {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "active")
+    private boolean active = true;
+
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 
@@ -46,6 +49,14 @@ public class Driver {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public LocalDateTime getDateCreated() {
