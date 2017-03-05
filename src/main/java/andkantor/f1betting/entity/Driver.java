@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="driver")
+@Table(name = "driver")
 public class Driver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "date_created")
