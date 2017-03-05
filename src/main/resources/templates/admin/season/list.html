@@ -33,7 +33,11 @@
                     <tr th:each="season : ${seasons}">
                         <td th:text="${season.name}"></td>
                         <td th:text="${season.dateCreated}"></td>
-                        <td><a href="#" th:href="@{/admin/season/{id}/view(id=${season.id})}">View</a></td>
+                        <td width="100px">
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-default" th:href="@{/admin/season/{id}/view(id=${season.id})}">View</a>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

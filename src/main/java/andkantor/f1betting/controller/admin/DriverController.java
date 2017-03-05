@@ -2,6 +2,7 @@ package andkantor.f1betting.controller.admin;
 
 import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.repository.DriverRepository;
+import andkantor.f1betting.repository.FinalPositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ public class DriverController {
 
     @Autowired
     DriverRepository driverRepository;
+
+    @Autowired
+    FinalPositionRepository finalPositionRepository;
 
     @RequestMapping("/list")
     public String list(Model model) {
@@ -60,7 +64,9 @@ public class DriverController {
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable Long id) {
-        driverRepository.delete(id);
+        Driver driver = driverRepository.findOne(id);
+        finalPositionRepository.deleteByDriver(driver);
+        driverRepository.delete(driver);
         return "redirect:/admin/driver/list";
     }
 }

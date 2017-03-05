@@ -40,16 +40,24 @@ public class RaceController {
     FinalPositionRepository finalPositionRepository;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String getCreate(Race race, Model model) {
+    public String create(Race race, Model model) {
         model.addAttribute("race", race);
-        return "admin/race/create";
+        return "admin/race/form";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String postCreate(@PathVariable Long seasonId, @Valid Race race) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(@PathVariable Long seasonId, @Valid Race race) {
         Season season = seasonRepository.findOne(seasonId);
         race.setSeason(season);
         raceRepository.save(race);
+        return "redirect:/admin/season/" + seasonId + "/view";
+    }
+
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    public String delete(@PathVariable Long seasonId, @PathVariable Long id) {
+        Race race = raceRepository.findOne(id);
+        finalPositionRepository.deleteByRace(race);
+        raceRepository.delete(race);
         return "redirect:/admin/season/" + seasonId + "/view";
     }
 
