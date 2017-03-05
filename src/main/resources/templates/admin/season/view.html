@@ -50,7 +50,7 @@
                         <td th:text="${race.name}"></td>
                         <td th:text="${race.location}"></td>
                         <td th:text="${race.startDateTime}"></td>
-                        <td><a href="#" th:href="@{/admin/race/view/{id}(id=${race.id})}">View</a></td>
+                        <td><a href="#" th:href="@{/admin/season/{id}/race/{raceId}/view(id=${season.id},raceId=${race.id})}">View</a></td>
                     </tr>
                     </tbody>
                 </table>

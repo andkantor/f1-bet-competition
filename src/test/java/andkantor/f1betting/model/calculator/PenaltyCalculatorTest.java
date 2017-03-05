@@ -12,7 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
-import static andkantor.f1betting.model.race.Position.position;
+import static andkantor.f1betting.model.race.Position.createPosition;
 import static andkantor.f1betting.model.bet.Point.ZERO;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
@@ -39,14 +39,14 @@ public class PenaltyCalculatorTest {
         underTest = new PenaltyCalculator();
 
         doReturn(racer).when(bet).getRacer();
-        doReturn(Optional.of(penalty)).when(context).getPenalty(racer, position(1));
+        doReturn(Optional.of(penalty)).when(context).getPenalty(racer, createPosition(1));
         doReturn(new Point(-6)).when(penalty).getPoint();
     }
 
     @Test
     public void calculateShouldReturnPenaltyPointsWhenPenaltyFound() {
         //given
-        doReturn(position(1)).when(bet).getFinalPosition();
+        doReturn(createPosition(1)).when(bet).getFinalPosition();
         Point expectedPoints = new Point(-6);
 
         //when
@@ -59,7 +59,7 @@ public class PenaltyCalculatorTest {
     @Test
     public void calculateShouldReturnZeroWhenPenaltyNotFound() {
         //given
-        doReturn(position(2)).when(bet).getFinalPosition();
+        doReturn(createPosition(2)).when(bet).getFinalPosition();
         Point expectedPoints = ZERO;
 
         //when

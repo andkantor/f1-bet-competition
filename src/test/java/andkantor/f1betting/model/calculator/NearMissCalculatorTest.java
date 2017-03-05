@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static andkantor.f1betting.model.race.Position.position;
+import static andkantor.f1betting.model.race.Position.createPosition;
 import static andkantor.f1betting.model.bet.Point.NEAR_MISS;
 import static andkantor.f1betting.model.bet.Point.ZERO;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -34,13 +34,13 @@ public class NearMissCalculatorTest {
         underTest = new NearMissCalculator();
 
         doReturn(racer).when(bet).getRacer();
-        doReturn(position(1)).when(context).getPosition(racer);
+        doReturn(createPosition(1)).when(context).getPosition(racer);
     }
 
     @Test
     public void calculateShouldReturnNearMissWhenDifferenceBetweenPositionsIsOne() {
         //given
-        doReturn(position(2)).when(bet).getFinalPosition();
+        doReturn(createPosition(2)).when(bet).getFinalPosition();
         Point expectedPoints = NEAR_MISS;
 
         //when
@@ -53,7 +53,7 @@ public class NearMissCalculatorTest {
     @Test
     public void calculateShouldReturnZeroWhenFinalPositionEquals() {
         //given
-        doReturn(position(1)).when(bet).getFinalPosition();
+        doReturn(createPosition(1)).when(bet).getFinalPosition();
         Point expectedPoints = ZERO;
 
         //when
@@ -66,7 +66,7 @@ public class NearMissCalculatorTest {
     @Test
     public void calculateShouldReturnZeroWhenDifferenceBetweenPositionsIsMoreThanOne() {
         //given
-        doReturn(position(10)).when(bet).getFinalPosition();
+        doReturn(createPosition(10)).when(bet).getFinalPosition();
         Point expectedPoints = ZERO;
 
         //when

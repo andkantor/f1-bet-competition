@@ -13,7 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static andkantor.f1betting.model.race.Position.position;
+import static andkantor.f1betting.model.race.Position.createPosition;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -38,7 +38,7 @@ public class CalculationContextTest {
     public void getPosition() {
         //given
         Racer racer = mock(Racer.class);
-        Position finalPosition = position(5);
+        Position finalPosition = createPosition(5);
         doReturn(finalPosition).when(raceResult).getFinalPosition(racer);
 
         //when
@@ -52,9 +52,9 @@ public class CalculationContextTest {
     public void getPenaltyShouldReturnEmptyWhenNotFound() {
         //given
         Racer racer = mock(Racer.class);
-        Position finalPosition = position(5);
+        Position finalPosition = createPosition(5);
         doReturn(racer).when(penalty).getRacer();
-        doReturn(position(4)).when(penalty).getPosition();
+        doReturn(createPosition(4)).when(penalty).getPosition();
 
         //when
         Optional<Penalty> result = underTest.getPenalty(racer, finalPosition);
@@ -67,9 +67,9 @@ public class CalculationContextTest {
     public void getPenaltyShouldReturnPenaltyWhenFound() {
         //given
         Racer racer = mock(Racer.class);
-        Position finalPosition = position(5);
+        Position finalPosition = createPosition(5);
         doReturn(racer).when(penalty).getRacer();
-        doReturn(position(5)).when(penalty).getPosition();
+        doReturn(createPosition(5)).when(penalty).getPosition();
 
         //when
         Optional<Penalty> result = underTest.getPenalty(racer, finalPosition);

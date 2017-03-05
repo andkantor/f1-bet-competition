@@ -1,15 +1,32 @@
 package andkantor.f1betting.model.race;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
+
+@Embeddable
+@Access(AccessType.PROPERTY)
 public class Position {
 
-    private final int position;
+    private int position;
+
+    public Position() {
+    }
 
     private Position(int position) {
         this.position = position;
     }
 
-    public static Position position(int position) {
+    public static Position createPosition(int position) {
         return new Position(position);
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public int difference(Position position) {
@@ -30,5 +47,10 @@ public class Position {
     @Override
     public int hashCode() {
         return position;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(position);
     }
 }

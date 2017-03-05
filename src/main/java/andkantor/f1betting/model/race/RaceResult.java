@@ -10,8 +10,26 @@ public class RaceResult {
     private Race race;
     private List<FinalPosition> finalPositions;
 
+    public RaceResult() {}
+
     public RaceResult(Race race, List<FinalPosition> finalPositions) {
         this.race = race;
+        this.finalPositions = finalPositions;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
+    public List<FinalPosition> getFinalPositions() {
+        return finalPositions;
+    }
+
+    public void setFinalPositions(List<FinalPosition> finalPositions) {
         this.finalPositions = finalPositions;
     }
 

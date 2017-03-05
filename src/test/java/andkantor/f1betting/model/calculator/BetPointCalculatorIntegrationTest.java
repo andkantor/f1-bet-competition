@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static andkantor.f1betting.model.race.Position.position;
+import static andkantor.f1betting.model.race.Position.createPosition;
 import static andkantor.f1betting.model.bet.Point.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
@@ -55,18 +55,18 @@ public class BetPointCalculatorIntegrationTest {
         underTest = new BetPointCalculator(pointCalculators);
 
         List<FinalPosition> finalPositions = Arrays.asList(
-                new FinalPosition(race, racer1, position(1)),
-                new FinalPosition(race, racer2, position(2)),
-                new FinalPosition(race, racer3, position(3)),
-                new FinalPosition(race, racer4, position(4))
+                new FinalPosition(race, racer1, createPosition(1)),
+                new FinalPosition(race, racer2, createPosition(2)),
+                new FinalPosition(race, racer3, createPosition(3)),
+                new FinalPosition(race, racer4, createPosition(4))
         );
 
         RaceResult raceResult = new RaceResult(race, finalPositions);
 
         List<Penalty> penalties = Arrays.asList(
-                new Penalty(race, racer1, position(1), PENALTY_POINTS),
-                new Penalty(race, racer2, position(3), PENALTY_POINTS),
-                new Penalty(race, racer4, position(2), PENALTY_POINTS)
+                new Penalty(race, racer1, createPosition(1), PENALTY_POINTS),
+                new Penalty(race, racer2, createPosition(3), PENALTY_POINTS),
+                new Penalty(race, racer4, createPosition(2), PENALTY_POINTS)
         );
 
         calculationContext = new CalculationContext(raceResult, penalties);
@@ -75,12 +75,12 @@ public class BetPointCalculatorIntegrationTest {
     @Parameterized.Parameters
     public static Collection<Object[]> generateData() {
         return Arrays.asList(new Object[][] {
-                        {racer2, position(2), HIT},
-                        {racer2, position(1), NEAR_MISS},
-                        {racer4, position(2), PENALTY_POINTS},
-                        {racer1, position(1), HIT.add(PENALTY_POINTS)},
-                        {racer2, position(3), NEAR_MISS.add(PENALTY_POINTS)},
-                        {racer4, position(1), ZERO},
+                        {racer2, createPosition(2), HIT},
+                        {racer2, createPosition(1), NEAR_MISS},
+                        {racer4, createPosition(2), PENALTY_POINTS},
+                        {racer1, createPosition(1), HIT.add(PENALTY_POINTS)},
+                        {racer2, createPosition(3), NEAR_MISS.add(PENALTY_POINTS)},
+                        {racer4, createPosition(1), ZERO},
             });
     }
 
