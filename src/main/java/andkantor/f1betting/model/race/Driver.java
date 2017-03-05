@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="racer")
-public class Racer {
+@Table(name="driver")
+public class Driver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +20,7 @@ public class Racer {
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 
-    public Racer() {
+    public Driver() {
         dateCreated = LocalDateTime.now();
     }
 

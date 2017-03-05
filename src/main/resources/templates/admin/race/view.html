@@ -40,10 +40,10 @@
                         </thead>
                         <tbody>
                         <tr th:each="finalPosition, stat : *{finalPositions}">
-                            <td th:text="${finalPosition.racerName}"></td>
+                            <td th:text="${finalPosition.driverName}"></td>
                             <td>
                                 <input type="hidden" th:field="*{finalPositions[__${stat.index}__].race}"/>
-                                <input type="hidden" th:field="*{finalPositions[__${stat.index}__].racer}"/>
+                                <input type="hidden" th:field="*{finalPositions[__${stat.index}__].driver}"/>
                                 <input type="text" th:field="*{finalPositions[__${stat.index}__].position.position}"/>
                             </td>
                             <td></td>

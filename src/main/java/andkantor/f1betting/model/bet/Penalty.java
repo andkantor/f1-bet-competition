@@ -1,19 +1,19 @@
 package andkantor.f1betting.model.bet;
 
+import andkantor.f1betting.model.race.Driver;
 import andkantor.f1betting.model.race.Position;
 import andkantor.f1betting.model.race.Race;
-import andkantor.f1betting.model.race.Racer;
 
 public class Penalty {
 
     private Race race;
-    private Racer racer;
+    private Driver driver;
     private Position position;
     private Point point;
 
-    public Penalty(Race race, Racer racer, Position position, Point point) {
+    public Penalty(Race race, Driver driver, Position position, Point point) {
         this.race = race;
-        this.racer = racer;
+        this.driver = driver;
         this.position = position;
         this.point = point;
     }
@@ -26,12 +26,12 @@ public class Penalty {
         this.race = race;
     }
 
-    public Racer getRacer() {
-        return racer;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setRacer(Racer racer) {
-        this.racer = racer;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public Position getPosition() {

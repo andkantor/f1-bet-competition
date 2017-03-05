@@ -3,7 +3,7 @@ package andkantor.f1betting.controller.admin;
 import andkantor.f1betting.model.race.*;
 import andkantor.f1betting.repository.FinalPositionRepository;
 import andkantor.f1betting.repository.RaceRepository;
-import andkantor.f1betting.repository.RacerRepository;
+import andkantor.f1betting.repository.DriverRepository;
 import andkantor.f1betting.repository.SeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class RaceController {
     RaceRepository raceRepository;
 
     @Autowired
-    RacerRepository racerRepository;
+    DriverRepository driverRepository;
 
     @Autowired
     FinalPositionRepository finalPositionRepository;
@@ -55,14 +55,14 @@ public class RaceController {
     @RequestMapping("/{id}/view")
     public String view(@PathVariable Long id, Model model) {
         Race race = raceRepository.findOne(id);
-        Iterable<Racer> racers = racerRepository.findAll();
+        Iterable<Driver> drivers = driverRepository.findAll();
         List<FinalPosition> finalPositionList = finalPositionRepository.findByRace(race);
 
-        List<FinalPosition> finalPositions = StreamSupport.stream(racers.spliterator(), false)
-                .map(racer -> finalPositionList.stream()
-                            .filter(finalPosition -> finalPosition.getRacer() == racer)
+        List<FinalPosition> finalPositions = StreamSupport.stream(drivers.spliterator(), false)
+                .map(driver -> finalPositionList.stream()
+                            .filter(finalPosition -> finalPosition.getDriver() == driver)
                             .findAny()
-                            .orElse(new FinalPosition(race, racer, createPosition(0))))
+                            .orElse(new FinalPosition(race, driver, createPosition(0))))
                 .collect(Collectors.toList());
 
         model.addAttribute("race", race);

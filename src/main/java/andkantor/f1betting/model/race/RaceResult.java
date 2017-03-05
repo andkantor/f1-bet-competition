@@ -1,6 +1,6 @@
 package andkantor.f1betting.model.race;
 
-import andkantor.f1betting.model.race.exception.RacerNotFoundException;
+import andkantor.f1betting.model.race.exception.DriverNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,13 +33,13 @@ public class RaceResult {
         this.finalPositions = finalPositions;
     }
 
-    public Position getFinalPosition(Racer racer) {
+    public Position getFinalPosition(Driver driver) {
         Optional<FinalPosition> position = finalPositions.stream()
-                .filter(finalPosition -> finalPosition.getRacer() == racer)
+                .filter(finalPosition -> finalPosition.getDriver() == driver)
                 .findFirst();
 
         return position
-                .orElseThrow(RacerNotFoundException::new)
+                .orElseThrow(DriverNotFoundException::new)
                 .getPosition();
     }
 }

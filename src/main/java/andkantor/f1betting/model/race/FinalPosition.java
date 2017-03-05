@@ -17,7 +17,7 @@ public class FinalPosition {
 
     @Id
     @ManyToOne
-    private Racer racer;
+    private Driver driver;
 
     @Embedded
     @Column(name = "position")
@@ -26,9 +26,9 @@ public class FinalPosition {
     public FinalPosition() {
     }
 
-    public FinalPosition(Race race, Racer racer, Position position) {
+    public FinalPosition(Race race, Driver driver, Position position) {
         this.race = race;
-        this.racer = racer;
+        this.driver = driver;
         this.position = position;
     }
 
@@ -40,12 +40,12 @@ public class FinalPosition {
         this.race = race;
     }
 
-    public Racer getRacer() {
-        return racer;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setRacer(Racer racer) {
-        this.racer = racer;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public Position getPosition() {
@@ -56,12 +56,12 @@ public class FinalPosition {
         this.position = position;
     }
 
-    public String getRacerName() {
-        return racer.getFirstName() + ' ' + racer.getLastName();
+    public String getDriverName() {
+        return driver.getFirstName() + ' ' + driver.getLastName();
     }
 
     public static class FinalPositionId implements Serializable {
         public Long race;
-        public Long racer;
+        public Long driver;
     }
 }

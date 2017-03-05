@@ -1,17 +1,17 @@
 package andkantor.f1betting.model.calculator;
 
-import andkantor.f1betting.model.race.Racer;
-import andkantor.f1betting.model.bet.Point;
 import andkantor.f1betting.model.bet.Bet;
+import andkantor.f1betting.model.bet.Point;
+import andkantor.f1betting.model.race.Driver;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static andkantor.f1betting.model.race.Position.createPosition;
 import static andkantor.f1betting.model.bet.Point.HIT;
 import static andkantor.f1betting.model.bet.Point.ZERO;
+import static andkantor.f1betting.model.race.Position.createPosition;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
@@ -22,7 +22,7 @@ public class HitCalculatorTest {
     private Bet bet;
 
     @Mock
-    private Racer racer;
+    private Driver driver;
 
     @Mock
     private CalculationContext context;
@@ -33,8 +33,8 @@ public class HitCalculatorTest {
     public void setUp() {
         underTest = new HitCalculator();
 
-        doReturn(racer).when(bet).getRacer();
-        doReturn(createPosition(1)).when(context).getPosition(racer);
+        doReturn(driver).when(bet).getDriver();
+        doReturn(createPosition(1)).when(context).getPosition(driver);
     }
 
     @Test

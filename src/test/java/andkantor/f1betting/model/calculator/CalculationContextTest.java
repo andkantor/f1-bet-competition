@@ -1,9 +1,9 @@
 package andkantor.f1betting.model.calculator;
 
+import andkantor.f1betting.model.bet.Penalty;
+import andkantor.f1betting.model.race.Driver;
 import andkantor.f1betting.model.race.Position;
 import andkantor.f1betting.model.race.RaceResult;
-import andkantor.f1betting.model.race.Racer;
-import andkantor.f1betting.model.bet.Penalty;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,12 +37,12 @@ public class CalculationContextTest {
     @Test
     public void getPosition() {
         //given
-        Racer racer = mock(Racer.class);
+        Driver driver = mock(Driver.class);
         Position finalPosition = createPosition(5);
-        doReturn(finalPosition).when(raceResult).getFinalPosition(racer);
+        doReturn(finalPosition).when(raceResult).getFinalPosition(driver);
 
         //when
-        Position position = underTest.getPosition(racer);
+        Position position = underTest.getPosition(driver);
 
         //then
         assertThat(position).isEqualTo(finalPosition);
@@ -51,13 +51,13 @@ public class CalculationContextTest {
     @Test
     public void getPenaltyShouldReturnEmptyWhenNotFound() {
         //given
-        Racer racer = mock(Racer.class);
+        Driver driver = mock(Driver.class);
         Position finalPosition = createPosition(5);
-        doReturn(racer).when(penalty).getRacer();
+        doReturn(driver).when(penalty).getDriver();
         doReturn(createPosition(4)).when(penalty).getPosition();
 
         //when
-        Optional<Penalty> result = underTest.getPenalty(racer, finalPosition);
+        Optional<Penalty> result = underTest.getPenalty(driver, finalPosition);
 
         //then
         assertThat(result.isPresent()).isFalse();
@@ -66,13 +66,13 @@ public class CalculationContextTest {
     @Test
     public void getPenaltyShouldReturnPenaltyWhenFound() {
         //given
-        Racer racer = mock(Racer.class);
+        Driver driver = mock(Driver.class);
         Position finalPosition = createPosition(5);
-        doReturn(racer).when(penalty).getRacer();
+        doReturn(driver).when(penalty).getDriver();
         doReturn(createPosition(5)).when(penalty).getPosition();
 
         //when
-        Optional<Penalty> result = underTest.getPenalty(racer, finalPosition);
+        Optional<Penalty> result = underTest.getPenalty(driver, finalPosition);
 
         //then
         assertThat(result.isPresent()).isTrue();

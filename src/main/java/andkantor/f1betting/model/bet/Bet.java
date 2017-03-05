@@ -1,14 +1,14 @@
 package andkantor.f1betting.model.bet;
 
+import andkantor.f1betting.model.race.Driver;
 import andkantor.f1betting.model.race.Position;
-import andkantor.f1betting.model.race.Racer;
 import andkantor.f1betting.model.race.Race;
 
 public class Bet {
 
     private Bettor bettor;
     private Race race;
-    private Racer racer;
+    private Driver driver;
     private Position finalPosition;
 
     public Bettor getBettor() {
@@ -27,12 +27,12 @@ public class Bet {
         this.race = race;
     }
 
-    public Racer getRacer() {
-        return racer;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setRacer(Racer racer) {
-        this.racer = racer;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public Position getFinalPosition() {

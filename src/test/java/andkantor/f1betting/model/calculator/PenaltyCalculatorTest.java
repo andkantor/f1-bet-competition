@@ -1,9 +1,9 @@
 package andkantor.f1betting.model.calculator;
 
-import andkantor.f1betting.model.race.Racer;
+import andkantor.f1betting.model.bet.Bet;
 import andkantor.f1betting.model.bet.Penalty;
 import andkantor.f1betting.model.bet.Point;
-import andkantor.f1betting.model.bet.Bet;
+import andkantor.f1betting.model.race.Driver;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +12,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
-import static andkantor.f1betting.model.race.Position.createPosition;
 import static andkantor.f1betting.model.bet.Point.ZERO;
+import static andkantor.f1betting.model.race.Position.createPosition;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
@@ -24,7 +24,7 @@ public class PenaltyCalculatorTest {
     private Bet bet;
 
     @Mock
-    private Racer racer;
+    private Driver driver;
 
     @Mock
     private Penalty penalty;
@@ -38,8 +38,8 @@ public class PenaltyCalculatorTest {
     public void setUp() {
         underTest = new PenaltyCalculator();
 
-        doReturn(racer).when(bet).getRacer();
-        doReturn(Optional.of(penalty)).when(context).getPenalty(racer, createPosition(1));
+        doReturn(driver).when(bet).getDriver();
+        doReturn(Optional.of(penalty)).when(context).getPenalty(driver, createPosition(1));
         doReturn(new Point(-6)).when(penalty).getPoint();
     }
 

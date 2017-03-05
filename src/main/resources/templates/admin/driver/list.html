@@ -3,17 +3,17 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
-    <title>Racers</title>
+    <title>Drivers</title>
 </head>
 <body>
 
 <section layout:fragment="content">
-    <h1 class="page-header">Racers</h1>
+    <h1 class="page-header">Drivers</h1>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="text-right">
-                <a th:href="@{/admin/racer/create}" class="btn btn-primary pull-right">Create</a>
+                <a th:href="@{/admin/driver/create}" class="btn btn-primary pull-right">Create</a>
             </div>
         </div>
     </div>
@@ -31,11 +31,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="racer : ${racers}">
-                        <td th:text="${racer.firstName}"></td>
-                        <td th:text="${racer.lastName}"></td>
-                        <td th:text="${racer.dateCreated}"></td>
-                        <td><a href="#" th:href="@{/admin/racer/{id}/view(id=${racer.id})}">View</a></td>
+                    <tr th:each="driver : ${drivers}">
+                        <td th:text="${driver.firstName}"></td>
+                        <td th:text="${driver.lastName}"></td>
+                        <td th:text="${driver.dateCreated}"></td>
+                        <td><a href="#" th:href="@{/admin/driver/{id}/view(id=${driver.id})}">View</a></td>
                     </tr>
                     </tbody>
                 </table>
