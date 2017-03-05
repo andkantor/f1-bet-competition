@@ -18,18 +18,6 @@ public class DriverController {
     @Autowired
     DriverRepository driverRepository;
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String getCreate(Driver driver, Model model) {
-        model.addAttribute("driver", driver);
-        return "admin/driver/create";
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String postCreate(@Valid Driver driver) {
-        driverRepository.save(driver);
-        return "redirect:/admin/driver/list";
-    }
-
     @RequestMapping("/list")
     public String list(Model model) {
         Iterable<Driver> drivers = driverRepository.findAll();
@@ -42,5 +30,37 @@ public class DriverController {
         Driver driver = driverRepository.findOne(id);
         model.addAttribute("driver", driver);
         return "admin/driver/view";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(Driver driver, Model model) {
+        model.addAttribute("driver", driver);
+        return "admin/driver/form";
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveNew(@Valid Driver driver) {
+        driverRepository.save(driver);
+        return "redirect:/admin/driver/list";
+    }
+
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable Long id, Model model) {
+        Driver driver = driverRepository.findOne(id);
+        model.addAttribute("driver", driver);
+        return "admin/driver/form";
+    }
+
+    @RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
+    public String saveExisting(@PathVariable Long id, @Valid Driver driver) {
+        driver.setId(id);
+        driverRepository.save(driver);
+        return "redirect:/admin/driver/list";
+    }
+
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    public String delete(@PathVariable Long id) {
+        driverRepository.delete(id);
+        return "redirect:/admin/driver/list";
     }
 }

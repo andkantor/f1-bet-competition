@@ -37,7 +37,13 @@
                         <td th:text="${driver.lastName}"></td>
                         <td th:text="${driver.active ? 'Yes' : 'No'}"></td>
                         <td th:text="${driver.dateCreated}"></td>
-                        <td><a href="#" th:href="@{/admin/driver/{id}/view(id=${driver.id})}">View</a></td>
+                        <td width="188px">
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-default" th:href="@{/admin/driver/{id}/view(id=${driver.id})}">View</a>
+                                <a href="#" class="btn btn-default" th:href="@{/admin/driver/{id}/edit(id=${driver.id})}">Edit</a>
+                                <a href="#" class="btn btn-danger" th:href="@{/admin/driver/{id}/delete(id=${driver.id})}">Delete</a>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
