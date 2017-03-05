@@ -1,8 +1,8 @@
 package andkantor.f1betting.model.calculator;
 
 import andkantor.f1betting.model.bet.Penalty;
-import andkantor.f1betting.model.race.Driver;
-import andkantor.f1betting.model.race.Position;
+import andkantor.f1betting.entity.Driver;
+import andkantor.f1betting.entity.Position;
 import andkantor.f1betting.model.race.RaceResult;
 
 import java.util.List;

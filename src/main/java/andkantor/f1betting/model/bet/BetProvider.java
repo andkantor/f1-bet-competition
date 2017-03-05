@@ -1,6 +1,6 @@
 package andkantor.f1betting.model.bet;
 
-import andkantor.f1betting.model.race.Race;
+import andkantor.f1betting.entity.Race;
 
 import java.util.List;
 import java.util.stream.Collectors;

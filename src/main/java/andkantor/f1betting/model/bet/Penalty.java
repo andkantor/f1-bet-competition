@@ -1,8 +1,8 @@
 package andkantor.f1betting.model.bet;
 
-import andkantor.f1betting.model.race.Driver;
-import andkantor.f1betting.model.race.Position;
-import andkantor.f1betting.model.race.Race;
+import andkantor.f1betting.entity.Driver;
+import andkantor.f1betting.entity.Position;
+import andkantor.f1betting.entity.Race;
 
 public class Penalty {
 

@@ -1,7 +1,7 @@
 package andkantor.f1betting.repository;
 
-import andkantor.f1betting.model.race.Race;
-import andkantor.f1betting.model.race.Season;
+import andkantor.f1betting.entity.Race;
+import andkantor.f1betting.entity.Season;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

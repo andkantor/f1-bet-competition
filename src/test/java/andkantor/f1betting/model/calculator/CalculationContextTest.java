@@ -1,8 +1,8 @@
 package andkantor.f1betting.model.calculator;
 
 import andkantor.f1betting.model.bet.Penalty;
-import andkantor.f1betting.model.race.Driver;
-import andkantor.f1betting.model.race.Position;
+import andkantor.f1betting.entity.Driver;
+import andkantor.f1betting.entity.Position;
 import andkantor.f1betting.model.race.RaceResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static andkantor.f1betting.model.race.Position.createPosition;
+import static andkantor.f1betting.entity.Position.createPosition;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;

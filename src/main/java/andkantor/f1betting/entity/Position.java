@@ -1,4 +1,4 @@
-package andkantor.f1betting.model.race;
+package andkantor.f1betting.entity;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;

@@ -1,5 +1,9 @@
 package andkantor.f1betting.controller.admin;
 
+import andkantor.f1betting.entity.Driver;
+import andkantor.f1betting.entity.FinalPosition;
+import andkantor.f1betting.entity.Race;
+import andkantor.f1betting.entity.Season;
 import andkantor.f1betting.model.race.*;
 import andkantor.f1betting.repository.FinalPositionRepository;
 import andkantor.f1betting.repository.RaceRepository;
@@ -18,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static andkantor.f1betting.model.race.Position.createPosition;
+import static andkantor.f1betting.entity.Position.createPosition;
 
 @Controller
 @RequestMapping(value = "/admin/season/{seasonId}/race")

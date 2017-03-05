@@ -1,6 +1,6 @@
 package andkantor.f1betting.model.calculator;
 
-import andkantor.f1betting.model.race.Race;
+import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.model.bet.Point;
 import andkantor.f1betting.model.bet.Bet;
 import andkantor.f1betting.model.bet.Bettor;

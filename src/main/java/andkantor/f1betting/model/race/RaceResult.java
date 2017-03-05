@@ -1,5 +1,9 @@
 package andkantor.f1betting.model.race;
 
+import andkantor.f1betting.entity.Driver;
+import andkantor.f1betting.entity.FinalPosition;
+import andkantor.f1betting.entity.Position;
+import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.model.race.exception.DriverNotFoundException;
 
 import java.util.List;

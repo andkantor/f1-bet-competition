@@ -1,6 +1,6 @@
 package andkantor.f1betting.controller.admin;
 
-import andkantor.f1betting.model.race.Driver;
+import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
