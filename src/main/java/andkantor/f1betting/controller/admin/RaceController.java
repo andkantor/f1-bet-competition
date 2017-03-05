@@ -64,7 +64,7 @@ public class RaceController {
     @RequestMapping("/{id}/view")
     public String view(@PathVariable Long id, Model model) {
         Race race = raceRepository.findOne(id);
-        Iterable<Driver> drivers = driverRepository.findAll();
+        Iterable<Driver> drivers = driverRepository.findByActive(true);
         List<FinalPosition> finalPositionList = finalPositionRepository.findByRace(race);
 
         List<FinalPosition> finalPositions = StreamSupport.stream(drivers.spliterator(), false)
