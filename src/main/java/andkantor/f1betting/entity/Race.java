@@ -30,6 +30,9 @@ public class Race {
     @DateTimeFormat(pattern = DATE_TIME_FORMAT)
     private LocalDateTime startDateTime;
 
+    @Column(name = "result_set")
+    private boolean resultSet;
+
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 
@@ -75,6 +78,14 @@ public class Race {
 
     public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
+    }
+
+    public boolean isResultSet() {
+        return resultSet;
+    }
+
+    public void setResultSet(boolean resultSet) {
+        this.resultSet = resultSet;
     }
 
     public LocalDateTime getDateCreated() {

@@ -98,6 +98,9 @@ public class RaceController {
     @RequestMapping("/{id}/saveRaceResult")
     public String saveRaceResult(@PathVariable Long id, @Valid RaceResult raceResult) {
         Race race = raceRepository.findOne(id);
+        race.setResultSet(true);
+        raceRepository.save(race);
+
         raceResult.getFinalPositions().forEach(finalPosition -> {
             finalPosition.setRace(race);
             finalPositionRepository.save(finalPosition);
