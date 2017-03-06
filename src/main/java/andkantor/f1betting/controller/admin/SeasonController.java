@@ -2,6 +2,7 @@ package andkantor.f1betting.controller.admin;
 
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.Season;
+import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.repository.RaceRepository;
 import andkantor.f1betting.repository.SeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class SeasonController {
     @Autowired
     RaceRepository raceRepository;
 
+    @Autowired
+    ConfigurationManager configurationManager;
+
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Season season, Model model) {
         model.addAttribute("season", season);
@@ -33,6 +37,12 @@ public class SeasonController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@Valid Season season) {
         seasonRepository.save(season);
+
+        if (configurationManager.getConfiguration().getActiveSeason() == 0) {
+            configurationManager.getConfiguration().setActiveSeason(season.getId());
+            configurationManager.save();
+        }
+
         return "redirect:/admin/season/list";
     }
 

@@ -23,4 +23,8 @@ public class ConfigurationManager {
                 .forEach((name, value) -> settingRepository.save(new Setting(name, value)));
     }
 
+    public void save() {
+        save(configuration);
+    }
+
 }
