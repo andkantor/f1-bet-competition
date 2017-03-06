@@ -3,12 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
-    <title>Create Driver</title>
+    <title th:text="${driver.id} ? 'Update Driver' : 'Create Driver'"></title>
 </head>
 <body>
 
 <section layout:fragment="content">
-    <h1 class="page-header">Create Driver</h1>
+    <h1 class="page-header" th:text="${driver.id} ? 'Update Driver' : 'Create Driver'"></h1>
 
     <form action="#" th:action="@{save}" th:object="${driver}" method="post">
         <div class="row top-20">

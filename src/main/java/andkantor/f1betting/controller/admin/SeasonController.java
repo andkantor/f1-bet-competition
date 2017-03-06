@@ -25,13 +25,27 @@ public class SeasonController {
     RaceRepository raceRepository;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String getCreate(Season season, Model model) {
+    public String create(Season season, Model model) {
         model.addAttribute("season", season);
-        return "admin/season/create";
+        return "admin/season/form";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String postCreate(@Valid Season season) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(@Valid Season season) {
+        seasonRepository.save(season);
+        return "redirect:/admin/season/list";
+    }
+
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable Long id, Model model) {
+        Season season = seasonRepository.findOne(id);
+        model.addAttribute("season", season);
+        return "admin/season/form";
+    }
+
+    @RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
+    public String save(@PathVariable Long id, @Valid Season season) {
+        season.setId(id);
         seasonRepository.save(season);
         return "redirect:/admin/season/list";
     }
