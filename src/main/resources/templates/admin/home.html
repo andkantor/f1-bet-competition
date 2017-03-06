@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
     <title>Home</title>
@@ -11,6 +12,33 @@
     <p>
         Welcome to F1 Betting admin page!
     </p>
+
+    <div th:if="${season}">
+        <h3>Active season: <a th:href="@{/admin/season/{id}/view(id=${season.id})}"><span th:text="${season.name}"></span></a></h3>
+    </div>
+    <div th:if="${season == null}">
+        <h3>There is no active season.</h3>
+        <a th:href="@{/admin/season/create}" class="btn btn-primary">Create new Season</a>
+    </div>
+
+    <div>
+        <h3>Races</h3>
+    </div>
+    <div class="row top-20" th:if="${season}">
+        <div class="col-xs-12">
+            <div th:if="${races.size() == 0}">There is not race added yet for active season.</div>
+            <div th:if="${races.size() > 0}">
+                <div th:each="race : ${races}">
+                    <div>
+                        <a th:href="@{/admin/season/{id}/race/{raceId}/view(id=${season.id},raceId=${race.id})}">
+                            <span th:text="${race.name}"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 </body>

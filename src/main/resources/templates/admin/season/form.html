@@ -14,7 +14,8 @@
         <div class="row top-20">
             <div class="col-xs-12">
                 <div class="text-right">
-                    <a class="btn btn-primary" th:href="@{/admin/season/list}">Back</a>
+                    <a class="btn btn-primary" th:href="@{/admin/season/list}">Back to list</a>
+                    <a class="btn btn-primary" th:if="${season.id}" th:href="@{/admin/season/{id}/view(id=${season.id})}">Back to view</a>
                     <input type="submit" class="btn btn-success" value="Save"/>
                 </div>
             </div>
@@ -25,13 +26,6 @@
                 <div class="form-group">
                     <label>Name</label>
                     <input class="form-control" type="text" th:field="*{name}" />
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" th:field="*{active}" />Active
-                        </label>
-                    </div>
                 </div>
             </div>
         </div>

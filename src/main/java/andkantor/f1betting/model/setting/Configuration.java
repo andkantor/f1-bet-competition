@@ -1,10 +1,8 @@
-package andkantor.f1betting.model;
+package andkantor.f1betting.model.setting;
 
 import andkantor.f1betting.entity.Setting;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Configuration {
@@ -12,10 +10,19 @@ public class Configuration {
     private Map<String, String> settings = new HashMap<>();
 
     public Configuration() {
+
     }
 
     public Configuration(Iterable<Setting> settings) {
-        settings.forEach((setting) -> this.settings.put(setting.getName(), setting.getValue()));
+        settings.forEach(setting -> this.settings.put(setting.getName(), setting.getValue()));
+    }
+
+    public Long getActiveSeason() {
+        return Long.valueOf(get("active_season", "0"));
+    }
+
+    public void setActiveSeason(Long activeSeasonId) {
+        settings.put("active_season", String.valueOf(activeSeasonId));
     }
 
     public int getNumberOfDriversToBetOn() {
@@ -26,13 +33,12 @@ public class Configuration {
         settings.put("number_of_drivers_to_bet_on", String.valueOf(numberOfDriversToBetOn));
     }
 
-    public List<Setting> toSettingList() {
-        List<Setting> result = new ArrayList<>();
-        settings.forEach((name, value) -> result.add(new Setting(name, value)));
-        return result;
+    public Map<String, String> getSettings() {
+        return settings;
     }
 
     private String get(String name, String defaultValue) {
         return settings.containsKey(name) ? settings.get(name) : defaultValue;
     }
+
 }

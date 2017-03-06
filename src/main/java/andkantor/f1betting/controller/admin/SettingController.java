@@ -1,6 +1,8 @@
 package andkantor.f1betting.controller.admin;
 
-import andkantor.f1betting.model.Configuration;
+import andkantor.f1betting.model.setting.Configuration;
+import andkantor.f1betting.model.setting.ConfigurationManager;
+import andkantor.f1betting.repository.SeasonRepository;
 import andkantor.f1betting.repository.SettingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,17 +18,22 @@ public class SettingController {
     @Autowired
     SettingRepository settingRepository;
 
+    @Autowired
+    ConfigurationManager configurationManager;
+
+    @Autowired
+    SeasonRepository seasonRepository;
+
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String settings(Model model) {
-        Configuration configuration = new Configuration(settingRepository.findAll());
-        model.addAttribute("configuration", configuration);
+        model.addAttribute("configuration", configurationManager.getConfiguration());
+        model.addAttribute("seasons", seasonRepository.findAll());
         return "admin/setting/form";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveSettings(@ModelAttribute Configuration configuration) {
-        configuration.toSettingList()
-                .forEach(settingRepository::save);
+        configurationManager.save(configuration);
         return "redirect:/admin/settings/edit";
     }
 
