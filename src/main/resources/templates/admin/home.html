@@ -9,9 +9,6 @@
 
 <section layout:fragment="content">
     <h1 class="page-header">Home</h1>
-    <p>
-        Welcome to F1 Betting admin page!
-    </p>
 
     <div th:if="${season}">
         <div>
@@ -19,15 +16,33 @@
         </div>
         <div class="row top-20">
             <div class="col-xs-12">
-                <div th:if="${races.size() == 0}">There is not race added yet for active season.</div>
-                <div th:if="${races.size() > 0}">
-                    <div th:each="race : ${races}">
-                        <div>
-                            <a th:href="@{/admin/season/{id}/race/{raceId}/view(id=${season.id},raceId=${race.id})}">
-                                <span th:text="${race.name}"></span>
-                            </a>
-                        </div>
+                <div th:if="${races.size() == 0}">
+                    <div>There is no race for active season.</div>
+                    <div>
+                        <a th:href="@{/admin/season/{id}/view(id=${season.id})}">Create new Race</a>
                     </div>
+                </div>
+                <div th:if="${races.size() > 0}">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Start Date and Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="race : ${races}">
+                            <td>
+                                <a th:href="@{/admin/season/{id}/race/{raceId}/view(id=${season.id},raceId=${race.id})}">
+                                    <span th:text="${race.name}"></span>
+                                </a>
+                            </td>
+                            <td th:text="${race.location}"></td>
+                            <td th:text="${race.startDateTime}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
