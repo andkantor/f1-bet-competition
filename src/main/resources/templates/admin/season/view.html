@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="text-right">
-                <a class="btn btn-primary" th:href="@{/admin/season/{id}/race/create(id=${season.id})}">Create Race</a>
+                <a class="btn btn-primary" th:href="@{/admin/race/create(seasonId=${season.id})}">Create Race</a>
             </div>
         </div>
     </div>
@@ -58,9 +58,9 @@
                         <td th:text="${race.startDateTime}"></td>
                         <td width="188px">
                             <div class="btn-group">
-                                <a href="#" class="btn btn-default" th:href="@{/admin/season/{id}/race/{raceId}/view(id=${season.id},raceId=${race.id})}">View</a>
-                                <a href="#" class="btn btn-default" th:href="@{/admin/season/{id}/race/{raceId}/edit(id=${season.id},raceId=${race.id})}">Edit</a>
-                                <a href="#" class="btn btn-danger" th:href="@{/admin/season/{id}/race/{raceId}/delete(id=${season.id},raceId=${race.id})}">Delete</a>
+                                <a href="#" class="btn btn-default" th:href="@{/admin/race/{id}/view(id=${race.id})}">View</a>
+                                <a href="#" class="btn btn-default" th:href="@{/admin/race/{id}/edit(id=${race.id})}">Edit</a>
+                                <a href="#" class="btn btn-danger" th:href="@{/admin/race/{id}/delete(id=${race.id})}">Delete</a>
                             </div>
                         </td>
                     </tr>

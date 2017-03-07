@@ -14,8 +14,8 @@
         <li><a th:href="@{/admin/home}">Home</a></li>
         <li><a th:href="@{/admin/season/list}">Seasons</a></li>
         <li><a th:href="@{/admin/season/{id}/view(id=${race.season.id})}" th:text="${race.season.name}"></a></li>
-        <li><a th:href="@{/admin/season/{id}/race/{raceId}/view(id=${race.season.id}, raceId=${race.id})}" th:text="${race.name}"></a></li>
-        <li class="active" th:text="'Penalties of ' + ${race.name}"></li>
+        <li><a th:href="@{/admin/race/{id}/view(id=${race.id})}" th:text="${race.name}"></a></li>
+        <li class="active">Penalties</li>
     </ol>
 
     <form action="#" th:action="@{save}" th:object="${form}" method="post">

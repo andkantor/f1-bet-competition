@@ -50,7 +50,7 @@ public class PenaltyController {
         form.getPenalties()
                 .forEach(penaltyRepository::save);
 
-        return "redirect:/admin/season/" + race.getSeason().getId() + "/race/" + id + "/view";
+        return "redirect:/admin/race/" + id + "/view";
     }
 
 }

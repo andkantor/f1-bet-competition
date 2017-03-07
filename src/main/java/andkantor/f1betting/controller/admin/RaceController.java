@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.stream.StreamSupport;
 import static andkantor.f1betting.entity.Position.createPosition;
 
 @Controller
-@RequestMapping(value = "/admin/season/{seasonId}/race")
+@RequestMapping(value = "/admin/race")
 public class RaceController {
 
     @Autowired
@@ -40,7 +41,7 @@ public class RaceController {
     FinalPositionRepository finalPositionRepository;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(@PathVariable Long seasonId, Race race, Model model) {
+    public String create(@RequestParam Long seasonId, Race race, Model model) {
         Season season = seasonRepository.findOne(seasonId);
         race.setSeason(season);
         model.addAttribute("race", race);
@@ -106,6 +107,6 @@ public class RaceController {
             finalPositionRepository.save(finalPosition);
         });
 
-        return "redirect:/admin/season/" + race.getSeason().getId() + "/race/" + id + "/view";
+        return "redirect:/admin/race/" + id + "/view";
     }
 }

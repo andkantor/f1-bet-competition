@@ -34,7 +34,7 @@
                         <tbody>
                         <tr th:each="race : ${races}">
                             <td>
-                                <a th:href="@{/admin/season/{id}/race/{raceId}/view(id=${season.id},raceId=${race.id})}">
+                                <a th:href="@{/admin/race/{id}/view(id=${race.id})}">
                                     <span th:text="${race.name}"></span>
                                 </a>
                             </td>
