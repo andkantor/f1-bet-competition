@@ -1,10 +1,10 @@
 package andkantor.f1betting.model.calculator;
 
+import andkantor.f1betting.entity.Point;
 import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.model.bet.Point;
 import andkantor.f1betting.model.bet.Bet;
-import andkantor.f1betting.model.bet.Bettor;
 import andkantor.f1betting.model.bet.BetProvider;
+import andkantor.f1betting.model.bet.Bettor;
 
 import java.util.List;
 import java.util.Map;

@@ -1,14 +1,31 @@
-package andkantor.f1betting.model.bet;
+package andkantor.f1betting.entity;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
+
+@Embeddable
+@Access(AccessType.PROPERTY)
 public class Point {
 
     public static final Point HIT = new Point(5);
     public static final Point NEAR_MISS = new Point(2);
     public static final Point ZERO = new Point(0);
 
-    private final int point;
+    private int point;
+
+    public Point() {
+    }
 
     public Point(int point) {
+        this.point = point;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
         this.point = point;
     }
 

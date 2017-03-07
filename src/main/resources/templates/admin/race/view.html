@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
-    <title>Season View</title>
+    <title>Race View</title>
 </head>
 <body>
 
@@ -23,11 +23,47 @@
 
     <div class="row top-20">
         <div class="col-xs-12">
+            <div class="form-group">
+                <label>Location</label>
+                <p class="form-control-static" th:text="${race.location}"></p>
+            </div>
+            <div class="form-group">
+                <label>Start date and time</label>
+                <p class="form-control-static" th:text="${race.startDateTime}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-20">
+        <div class="col-xs-12">
+            <h3>Penalties</h3>
+        </div>
+    </div>
+
+    <div class="row top-20">
+        <div class="col-xs-12">
+            <div class="text-right">
+                <a class="btn btn-primary"
+                   th:href="@{/admin/race/{id}/penalties/edit(id=${race.id})}">Edit</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-20">
+        <div class="col-xs-12">
             <h3>Final Positions</h3>
         </div>
     </div>
 
     <form action="#" th:action="@{saveRaceResult}" th:object="${raceResult}" method="post">
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div class="text-right">
+                    <button class="btn btn-success">Set Race Result</button>
+                </div>
+            </div>
+        </div>
+
         <input type="hidden" th:field="*{race}"/>
         <div class="row top-20">
             <div class="col-xs-12">
@@ -42,7 +78,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="finalPosition, stat : *{finalPositions}">
-                            <td th:text="${finalPosition.driverName}"></td>
+                            <td th:text="${finalPosition.driver.name}"></td>
                             <td>
                                 <input type="hidden" th:field="*{finalPositions[__${stat.index}__].race}"/>
                                 <input type="hidden" th:field="*{finalPositions[__${stat.index}__].driver}"/>
@@ -53,12 +89,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-
-        <div class="row top-20">
-            <div class="col-xs-12">
-                <button class="btn btn-primary">Set Race Result</button>
             </div>
         </div>
     </form>

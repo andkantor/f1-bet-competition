@@ -56,10 +56,6 @@ public class FinalPosition {
         this.position = position;
     }
 
-    public String getDriverName() {
-        return driver.getFirstName() + ' ' + driver.getLastName();
-    }
-
     public static class FinalPositionId implements Serializable {
         public Long race;
         public Long driver;

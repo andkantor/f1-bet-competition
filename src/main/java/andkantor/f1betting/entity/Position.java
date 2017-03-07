@@ -13,7 +13,7 @@ public class Position {
     public Position() {
     }
 
-    private Position(int position) {
+    public Position(int position) {
         this.position = position;
     }
 

@@ -1,5 +1,6 @@
 package andkantor.f1betting.model.bet;
 
+import andkantor.f1betting.entity.Penalty;
 import andkantor.f1betting.entity.Race;
 
 import java.util.List;

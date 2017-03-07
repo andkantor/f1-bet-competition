@@ -1,6 +1,6 @@
 package andkantor.f1betting.model.calculator;
 
-import andkantor.f1betting.model.bet.Point;
+import andkantor.f1betting.entity.Point;
 import andkantor.f1betting.model.bet.Bet;
 
 import java.util.List;

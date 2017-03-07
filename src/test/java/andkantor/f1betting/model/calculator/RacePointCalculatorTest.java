@@ -1,18 +1,18 @@
 package andkantor.f1betting.model.calculator;
 
+import andkantor.f1betting.entity.Point;
 import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.model.bet.Point;
 import andkantor.f1betting.model.bet.Bet;
-import andkantor.f1betting.model.bet.Bettor;
 import andkantor.f1betting.model.bet.BetProvider;
+import andkantor.f1betting.model.bet.Bettor;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Map;
 
-import static andkantor.f1betting.model.bet.Point.HIT;
-import static andkantor.f1betting.model.bet.Point.ZERO;
+import static andkantor.f1betting.entity.Point.HIT;
+import static andkantor.f1betting.entity.Point.ZERO;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="admin/layout">
+<head>
+    <title th:text="'Penalties of ' + ${race.name}"></title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <h1 class="page-header" th:text="'Penalties of ' + ${race.name}"></h1>
+
+    <form action="#" th:action="@{save}" th:object="${form}" method="post">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-right">
+                    <a class="btn btn-default"
+                       th:href="@{/admin/season/{seasonId}/race/{id}/view(seasonId=${race.season.id},id=${race.id})}">Back</a>
+                    <input type="submit" class="btn btn-success" value="Save"/>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" th:field="*{race}"/>
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Driver</th>
+                            <th>Position</th>
+                            <th>Point</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="penalty, stat : *{penalties}">
+                            <td>
+                                <input type="hidden" th:field="*{penalties[__${stat.index}__].race}"/>
+                                <select class="form-control" th:field="*{penalties[__${stat.index}__].driver}">
+                                    <option th:each="driver : ${drivers}"
+                                            th:value="${driver.id}"
+                                            th:text="${driver.name}">
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{penalties[__${stat.index}__].positionAsInt}"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{penalties[__${stat.index}__].point.point}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+
+</body>
+</html>

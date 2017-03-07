@@ -62,4 +62,8 @@ public class Driver {
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
+
+    public String getName() {
+        return this.firstName + ' ' + this.lastName;
+    }
 }
