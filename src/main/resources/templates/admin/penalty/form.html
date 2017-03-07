@@ -37,9 +37,10 @@
                             <th>Driver</th>
                             <th>Position</th>
                             <th>Point</th>
+                            <th><a href="#" id="penalty-add-btn" class="btn btn-primary">Add</a></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="penalty-table-body" th:attr="data-penalties=${form.penalties.size()}">
                         <tr th:each="penalty, stat : *{penalties}">
                             <td>
                                 <input type="hidden" th:field="*{penalties[__${stat.index}__].race}"/>
@@ -56,6 +57,9 @@
                             <td>
                                 <input type="text" class="form-control" th:field="*{penalties[__${stat.index}__].point.point}"/>
                             </td>
+                            <td>
+                                <a href="#" class="btn btn-danger penalty-delete-btn">Delete</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -64,7 +68,49 @@
         </div>
     </form>
 
+    <table style="display: none">
+        <tr id="penalty-row-template">
+            <td>
+                <input type="hidden" id="penalties__ID__.race" name="penalties[__ID__].race" th:value="${race.id}" />
+                <select class="form-control" id="penalties__ID__.driver" name="penalties[__ID__].driver">
+                    <option value="0">-- Choose --</option>
+                    <option th:each="driver : ${drivers}"
+                            th:value="${driver.id}"
+                            th:text="${driver.name}">
+                    </option>
+                </select>
+            </td>
+            <td>
+                <input type="text" class="form-control" id="penalties__ID__.positionAsInt" name="penalties[__ID__].positionAsInt" value="" />
+            </td>
+            <td>
+                <input type="text" class="form-control" id="penalties__ID__.point.point" name="penalties[__ID__].point.point" value="" />
+            </td>
+            <td>
+                <a href="#" class="btn btn-danger penalty-delete-btn">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        $('#penalty-add-btn').on('click', function () {
+            var $penaltyTable = $('#penalty-table-body');
+            var $penaltyRowTemplate = $('#penalty-row-template');
+
+            var penaltyCounter = $penaltyTable.attr('data-penalties');
+            var html = $penaltyRowTemplate.html().replace(/__ID__/g, penaltyCounter);
+            $penaltyTable.append('<tr>' + html + '</tr>');
+
+            $penaltyTable.attr("data-penalties", ++penaltyCounter);
+        });
+
+        $('body').on('click', '.penalty-delete-btn', function () {
+            $(this).parent().parent().remove();
+        });
+    </script>
+
 </section>
+
 
 </body>
 </html>

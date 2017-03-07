@@ -47,7 +47,8 @@ public class PenaltyController {
     public String save(@PathVariable Long id, @Valid PenaltyForm form) {
         Race race = raceRepository.findOne(id);
         penaltyRepository.deleteByRace(race);
-        form.getPenalties()
+        form.getPenalties().stream()
+                .filter(penalty -> race.equals(penalty.getRace()))
                 .forEach(penaltyRepository::save);
 
         return "redirect:/admin/race/" + id + "/view";

@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label>Active season</label>
                     <select class="form-control" th:field="*{activeSeason}">
-                        <option value="0">--Choose--</option>
+                        <option value="0">-- Choose --</option>
                         <option th:each="season : ${seasons}"
                                 th:value="${season.id}"
                                 th:text="${season.name}"></option>
