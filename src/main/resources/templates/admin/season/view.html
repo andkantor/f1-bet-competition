@@ -3,17 +3,22 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
-    <title>Season View</title>
+    <title th:text="${season.name}"></title>
 </head>
 <body>
 
 <section layout:fragment="content">
     <h1 class="page-header" th:text="${season.name}"></h1>
 
+    <ol class="breadcrumb">
+        <li><a th:href="@{/admin/home}">Home</a></li>
+        <li><a th:href="@{/admin/season/list}">Seasons</a></li>
+        <li class="active" th:text="${season.name}"></li>
+    </ol>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="text-right">
-                <a class="btn btn-default" th:href="@{/admin/season/list}">Back</a>
                 <a class="btn btn-primary" th:href="@{/admin/season/{id}/edit(id=${season.id})}">Edit</a>
             </div>
         </div>

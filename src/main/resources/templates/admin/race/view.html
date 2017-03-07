@@ -10,11 +10,16 @@
 <section layout:fragment="content">
     <h1 class="page-header" th:text="${race.name}"></h1>
 
+    <ol class="breadcrumb">
+        <li><a th:href="@{/admin/home}">Home</a></li>
+        <li><a th:href="@{/admin/season/list}">Seasons</a></li>
+        <li><a th:href="@{/admin/season/{id}/view(id=${race.season.id})}" th:text="${race.season.name}"></a></li>
+        <li class="active" th:text="${race.name}"></li>
+    </ol>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="text-right">
-                <a class="btn btn-primary"
-                   th:href="@{/admin/season/{seasonId}/view(seasonId=${race.season.id})}">Back to list</a>
                 <a class="btn btn-default"
                    th:href="@{/admin/season/{seasonId}/race/{id}/edit(seasonId=${race.season.id},id=${race.id})}">Edit</a>
             </div>

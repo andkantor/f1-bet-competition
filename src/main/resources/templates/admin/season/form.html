@@ -3,19 +3,23 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
-    <title th:text="${season.id} ? 'Update Season' : 'Create Season'"></title>
+    <title th:text="${season.id} ? 'Update ' + ${season.name} : 'Create Season'"></title>
 </head>
 <body>
 
 <section layout:fragment="content">
-    <h1 class="page-header" th:text="${season.id} ? 'Update Season' : 'Create Season'"></h1>
+    <h1 class="page-header" th:text="${season.id} ? 'Update ' + ${season.name} : 'Create Season'"></h1>
+
+    <ol class="breadcrumb">
+        <li><a th:href="@{/admin/home}">Home</a></li>
+        <li><a th:href="@{/admin/season/list}">Seasons</a></li>
+        <li class="active" th:text="${season.id} ? 'Update ' + ${season.name} : 'Create Season'"></li>
+    </ol>
 
     <form action="#" th:action="@{save}" th:object="${season}" method="post">
         <div class="row top-20">
             <div class="col-xs-12">
                 <div class="text-right">
-                    <a class="btn btn-default" th:href="@{/admin/season/list}">Back to list</a>
-                    <a class="btn btn-default" th:if="${season.id}" th:href="@{/admin/season/{id}/view(id=${season.id})}">Back to view</a>
                     <input type="submit" class="btn btn-success" value="Save"/>
                 </div>
             </div>

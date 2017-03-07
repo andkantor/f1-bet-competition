@@ -3,17 +3,22 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
-    <title>Driver View</title>
+    <title th:text="${driver.name}"></title>
 </head>
 <body>
 
 <section layout:fragment="content">
-    <h1 class="page-header" th:text="${driver.firstName} + ' ' + ${driver.lastName}"></h1>
+    <h1 class="page-header" th:text="${driver.name}"></h1>
+
+    <ol class="breadcrumb">
+        <li><a th:href="@{/admin/home}">Home</a></li>
+        <li><a th:href="@{/admin/driver/list}">Drivers</a></li>
+        <li class="active" th:text="${driver.name}"></li>
+    </ol>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="text-right">
-                <a class="btn btn-default" th:href="@{/admin/driver/list}">Back to list</a>
                 <a class="btn btn-primary" th:href="@{/admin/driver/{id}/edit(id=${driver.id})}">Edit</a>
             </div>
         </div>

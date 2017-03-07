@@ -3,18 +3,23 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="admin/layout">
 <head>
-    <title th:text="${driver.id} ? 'Update Driver' : 'Create Driver'"></title>
+    <title th:text="${driver.id} ? 'Update ' + ${driver.name} : 'Create Driver'"></title>
 </head>
 <body>
 
 <section layout:fragment="content">
-    <h1 class="page-header" th:text="${driver.id} ? 'Update Driver' : 'Create Driver'"></h1>
+    <h1 class="page-header" th:text="${driver.id} ? 'Update ' + ${driver.name} : 'Create Driver'"></h1>
+
+    <ol class="breadcrumb">
+        <li><a th:href="@{/admin/home}">Home</a></li>
+        <li><a th:href="@{/admin/driver/list}">Drivers</a></li>
+        <li class="active" th:text="${driver.id} ? 'Update ' + ${driver.name} : 'Create Driver'"></li>
+    </ol>
 
     <form action="#" th:action="@{save}" th:object="${driver}" method="post">
         <div class="row top-20">
             <div class="col-xs-12">
                 <div class="text-right">
-                    <a class="btn btn-default" th:href="@{/admin/driver/list}">Back</a>
                     <input type="submit" class="btn btn-success" value="Save"/>
                 </div>
             </div>
