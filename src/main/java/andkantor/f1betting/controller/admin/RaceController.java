@@ -1,6 +1,5 @@
 package andkantor.f1betting.controller.admin;
 
-import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.FinalPosition;
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.Season;
@@ -16,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static andkantor.f1betting.entity.Position.createPosition;
 
 @Controller
 @RequestMapping(value = "/admin/race")
@@ -80,34 +75,12 @@ public class RaceController {
     @RequestMapping("/{id}/view")
     public String view(@PathVariable Long id, Model model) {
         Race race = raceRepository.findOne(id);
-        Iterable<Driver> drivers = driverRepository.findByActive(true);
-        List<FinalPosition> finalPositionList = finalPositionRepository.findByRace(race);
-
-        List<FinalPosition> finalPositions = StreamSupport.stream(drivers.spliterator(), false)
-                .map(driver -> finalPositionList.stream()
-                            .filter(finalPosition -> finalPosition.getDriver() == driver)
-                            .findAny()
-                            .orElse(new FinalPosition(race, driver, createPosition(0))))
-                .collect(Collectors.toList());
+        List<FinalPosition> finalPositions = finalPositionRepository.findByRace(race);
 
         model.addAttribute("race", race);
         model.addAttribute("penalties", penaltyRepository.findByRace(race));
         model.addAttribute("raceResult", new RaceResult(race, finalPositions));
 
         return "admin/race/view";
-    }
-
-    @RequestMapping("/{id}/saveRaceResult")
-    public String saveRaceResult(@PathVariable Long id, @Valid RaceResult raceResult) {
-        Race race = raceRepository.findOne(id);
-        race.setResultSet(true);
-        raceRepository.save(race);
-
-        raceResult.getFinalPositions().forEach(finalPosition -> {
-            finalPosition.setRace(race);
-            finalPositionRepository.save(finalPosition);
-        });
-
-        return "redirect:/admin/race/" + id + "/view";
     }
 }
