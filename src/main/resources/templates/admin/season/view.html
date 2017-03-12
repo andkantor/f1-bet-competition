@@ -53,7 +53,11 @@
                     </thead>
                     <tbody>
                     <tr th:each="race : ${races}">
-                        <td th:text="${race.name}"></td>
+                        <td>
+                            <a th:href="@{/admin/race/{id}/view(id=${race.id})}">
+                                <span th:text="${race.name}"></span>
+                            </a>
+                        </td>
                         <td th:text="${race.location}"></td>
                         <td th:text="${race.startDateTime}"></td>
                         <td width="188px">
