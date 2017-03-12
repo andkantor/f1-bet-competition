@@ -33,6 +33,12 @@ public class Point {
         return new Point(this.point + point.point);
     }
 
+
+    @Override
+    public String toString() {
+        return "" + point;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

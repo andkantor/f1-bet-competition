@@ -41,29 +41,45 @@
 
     <div class="row top-20">
         <div class="col-xs-12">
-            <h3>Penalties</h3>
-        </div>
-    </div>
-
-    <div class="row top-20">
-        <div class="col-xs-12">
-            <div class="text-right">
-                <a class="btn btn-primary"
-                   th:href="@{/admin/race/{id}/penalties/edit(id=${race.id})}">Edit</a>
+            <div class="pull-left">
+                <h3>Penalties</h3>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-primary" th:href="@{/admin/race/{id}/penalties/edit(id=${race.id})}">Edit</a>
             </div>
         </div>
     </div>
 
     <div class="row top-20">
         <div class="col-xs-12">
-            <h3>Final Positions</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Driver</th>
+                        <th>Position</th>
+                        <th>Point</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="penalty, stat : *{penalties}">
+                        <td th:text="${penalty.driver.name}"></td>
+                        <td th:text="${penalty.position}"></td>
+                        <td th:text="${penalty.point}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <form action="#" th:action="@{saveRaceResult}" th:object="${raceResult}" method="post">
         <div class="row top-20">
             <div class="col-xs-12">
-                <div class="text-right">
+                <div class="pull-left">
+                    <h3>Final Positions</h3>
+                </div>
+                <div class="pull-right">
                     <button class="btn btn-success">Set Race Result</button>
                 </div>
             </div>
@@ -78,7 +94,6 @@
                         <tr>
                             <th>Driver</th>
                             <th>Position</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,7 +104,6 @@
                                 <input type="hidden" th:field="*{finalPositions[__${stat.index}__].driver}"/>
                                 <input type="text" th:field="*{finalPositions[__${stat.index}__].position.position}"/>
                             </td>
-                            <td></td>
                         </tr>
                         </tbody>
                     </table>

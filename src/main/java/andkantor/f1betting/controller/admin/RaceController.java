@@ -5,10 +5,7 @@ import andkantor.f1betting.entity.FinalPosition;
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.Season;
 import andkantor.f1betting.model.race.RaceResult;
-import andkantor.f1betting.repository.DriverRepository;
-import andkantor.f1betting.repository.FinalPositionRepository;
-import andkantor.f1betting.repository.RaceRepository;
-import andkantor.f1betting.repository.SeasonRepository;
+import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +36,9 @@ public class RaceController {
 
     @Autowired
     FinalPositionRepository finalPositionRepository;
+
+    @Autowired
+    PenaltyRepository penaltyRepository;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(@RequestParam Long seasonId, Race race, Model model) {
@@ -91,6 +91,7 @@ public class RaceController {
                 .collect(Collectors.toList());
 
         model.addAttribute("race", race);
+        model.addAttribute("penalties", penaltyRepository.findByRace(race));
         model.addAttribute("raceResult", new RaceResult(race, finalPositions));
 
         return "admin/race/view";
