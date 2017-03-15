@@ -45,6 +45,10 @@ public class BetController extends BaseController {
         User user = getUser();
         Race race = raceRepository.findOne(id);
 
+        if (!race.canBeBetOn()) {
+            return "redirect:/race/" + id + "/view";
+        }
+
         List<Bet> bets = betRepository.findByUserAndRace(user, race);
 
         if (bets.isEmpty()) {
@@ -64,6 +68,10 @@ public class BetController extends BaseController {
     public String save(@PathVariable Long id, @ModelAttribute @Valid BetForm betForm) {
         User user = getUser();
         Race race = raceRepository.findOne(id);
+
+        if (!race.canBeBetOn()) {
+            return "redirect:/race/" + id + "/view";
+        }
 
         betRepository.deleteByUserAndRace(user, race);
 

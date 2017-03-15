@@ -11,7 +11,9 @@
     <h1 class="page-header" th:text="${race.name}"></h1>
 
     <h3 class="page-header" th:text="'Bets for ' + ${race.name}"></h3>
-    <a th:href="@{/race/{id}/bet(id=${race.id})}" class="btn btn-primary" th:text="${bets.size() == 0 ? 'Bet' : 'Change bets'}"></a>
+    <a th:href="@{/race/{id}/bet(id=${race.id})}" class="btn btn-primary"
+       th:if="${race.canBeBetOn()}"
+       th:text="${bets.size() == 0 ? 'Bet' : 'Change bets'}"></a>
 
     <div class="row top-20">
         <div class="col-xs-12">

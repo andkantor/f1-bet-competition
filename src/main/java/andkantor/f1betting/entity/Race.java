@@ -91,4 +91,8 @@ public class Race {
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
+
+    public boolean canBeBetOn() {
+        return LocalDateTime.now().plusHours(1).isBefore(startDateTime);
+    }
 }
