@@ -7,12 +7,14 @@ import andkantor.f1betting.repository.BetRepository;
 import andkantor.f1betting.repository.SettingRepository;
 import andkantor.f1betting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 
 @Configuration
+@EntityScan("andkantor.f1betting.entity")
 public class F1BettingAppConfig {
 
     @Autowired

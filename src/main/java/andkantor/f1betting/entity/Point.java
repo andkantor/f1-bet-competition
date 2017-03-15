@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
-public class Point {
+public class Point implements Comparable<Point> {
 
     public static final Point HIT = new Point(5);
     public static final Point NEAR_MISS = new Point(2);
@@ -33,7 +33,6 @@ public class Point {
         return new Point(this.point + point.point);
     }
 
-
     @Override
     public String toString() {
         return "" + point;
@@ -53,5 +52,12 @@ public class Point {
     @Override
     public int hashCode() {
         return point;
+    }
+
+    @Override
+    public int compareTo(Point other) {
+        return other.point > point
+                ? 1
+                : other.point == point ? 0 : -1;
     }
 }
