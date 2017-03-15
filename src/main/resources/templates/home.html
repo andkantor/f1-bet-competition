@@ -8,7 +8,75 @@
 <body>
 
 <section layout:fragment="content">
-    <h1 class="page-header">Welcome home</h1>
+    <h1 class="page-header">Welcome to F1 Betting</h1>
+
+    <div th:if="${season}">
+        <div>
+            <h3>Leaderboard of <span th:text="${season.name}"></span></h3>
+        </div>
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div th:if="${users.size() == 0}">
+                    <div>There is registered user yet.</div>
+                </div>
+                <div th:if="${users.size() > 0}">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${0}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>Races of <span th:text="${season.name}"></span></h3>
+        </div>
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div th:if="${races.size() == 0}">
+                    <div>There is no race for active season.</div>
+                </div>
+                <div th:if="${races.size() > 0}">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Start Date and Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="race : ${races}">
+                            <td>
+                                <a th:href="@{/race/{id}/view(id=${race.id})}">
+                                    <span th:text="${race.name}"></span>
+                                </a>
+                            </td>
+                            <td th:text="${race.location}"></td>
+                            <td th:text="${race.startDateTime}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${season == null}">
+        <h3>There is no active season.</h3>
+    </div>
+
+
 </section>
 
 </body>
