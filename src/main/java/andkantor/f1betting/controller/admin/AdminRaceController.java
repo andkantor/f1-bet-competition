@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin/race")
-public class RaceController {
+public class AdminRaceController {
 
     @Autowired
     SeasonRepository seasonRepository;

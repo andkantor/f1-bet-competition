@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+    <title th:text="'Bet on ' + ${race.name}"></title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <h1 class="page-header" th:text="'Bet on ' + ${race.name}"></h1>
+
+    <form action="#" th:action="@{save}" th:object="${betForm}" method="post">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-right">
+                    <input type="submit" class="btn btn-success" value="Save"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row top-20">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Driver</th>
+                            <th>Final Position</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="bet, stat : *{bets}">
+                            <td>
+                                <input type="hidden" th:field="*{bets[__${stat.index}__].race}"/>
+                                <select class="form-control" th:field="*{bets[__${stat.index}__].driver}">
+                                    <option value="0">-- Choose --</option>
+                                    <option th:each="driver : ${drivers}"
+                                            th:value="${driver.id}"
+                                            th:text="${driver.name}">
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" th:field="*{bets[__${stat.index}__].finalPosition.position}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+
+
+</body>
+</html>

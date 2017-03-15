@@ -1,10 +1,10 @@
 package andkantor.f1betting.model.calculator;
 
+import andkantor.f1betting.entity.Bet;
 import andkantor.f1betting.entity.Point;
 import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.model.bet.Bet;
+import andkantor.f1betting.entity.User;
 import andkantor.f1betting.model.bet.BetProvider;
-import andkantor.f1betting.model.bet.Bettor;
 
 import java.util.List;
 import java.util.Map;
@@ -26,8 +26,8 @@ public class RacePointCalculator {
         this.context = context;
     }
 
-    public Map<Bet, Point> calculate(Bettor bettor, Race race) {
-        List<Bet> bets = betProvider.getBets(bettor, race);
+    public Map<Bet, Point> calculate(User user, Race race) {
+        List<Bet> bets = betProvider.getBets(user, race);
 
         return bets.stream().collect(Collectors.toMap(
                 bet -> bet,

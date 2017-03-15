@@ -1,22 +1,38 @@
-package andkantor.f1betting.model.bet;
+package andkantor.f1betting.entity;
 
-import andkantor.f1betting.entity.Driver;
-import andkantor.f1betting.entity.Position;
-import andkantor.f1betting.entity.Race;
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "bet")
+@IdClass(Bet.BetId.class)
 public class Bet {
 
-    private Bettor bettor;
+    @Id
+    @ManyToOne
+    private User user;
+
+    @Id
+    @ManyToOne
     private Race race;
+
+    @Id
+    @ManyToOne
     private Driver driver;
+
+    @Embedded
+    @Column(name = "final_position")
     private Position finalPosition;
 
-    public Bettor getBettor() {
-        return bettor;
+    public Bet() {
     }
 
-    public void setBettor(Bettor bettor) {
-        this.bettor = bettor;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Race getRace() {
@@ -41,5 +57,11 @@ public class Bet {
 
     public void setFinalPosition(Position finalPosition) {
         this.finalPosition = finalPosition;
+    }
+
+    public static class BetId implements Serializable {
+        public String user;
+        public Long race;
+        public Long driver;
     }
 }

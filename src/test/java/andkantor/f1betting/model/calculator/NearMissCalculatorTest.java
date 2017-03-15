@@ -2,7 +2,7 @@ package andkantor.f1betting.model.calculator;
 
 import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.Point;
-import andkantor.f1betting.model.bet.Bet;
+import andkantor.f1betting.entity.Bet;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

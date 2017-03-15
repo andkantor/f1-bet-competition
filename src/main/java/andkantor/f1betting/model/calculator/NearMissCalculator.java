@@ -2,7 +2,7 @@ package andkantor.f1betting.model.calculator;
 
 import andkantor.f1betting.entity.Point;
 import andkantor.f1betting.entity.Position;
-import andkantor.f1betting.model.bet.Bet;
+import andkantor.f1betting.entity.Bet;
 
 public class NearMissCalculator implements PointCalculator {
 

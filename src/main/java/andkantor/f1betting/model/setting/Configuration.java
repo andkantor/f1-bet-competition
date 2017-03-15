@@ -26,7 +26,7 @@ public class Configuration {
     }
 
     public int getNumberOfDriversToBetOn() {
-        return Integer.valueOf(get("number_of_drivers_to_bet_on", "10"));
+        return Integer.valueOf(get("number_of_drivers_to_bet_on", "5"));
     }
 
     public void setNumberOfDriversToBetOn(int numberOfDriversToBetOn) {

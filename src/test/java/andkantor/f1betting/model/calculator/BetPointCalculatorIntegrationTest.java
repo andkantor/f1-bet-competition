@@ -1,7 +1,7 @@
 package andkantor.f1betting.model.calculator;
 
 import andkantor.f1betting.entity.*;
-import andkantor.f1betting.model.bet.Bet;
+import andkantor.f1betting.entity.Bet;
 import andkantor.f1betting.model.race.RaceResult;
 import org.junit.Before;
 import org.junit.Test;
