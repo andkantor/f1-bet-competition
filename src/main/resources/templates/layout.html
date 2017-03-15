@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>F1 Betting</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap/sb-admin.css}"/>
-    <link rel="stylesheet" th:href="@{/css/bootstrap/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/admin.css}"/>
     <link rel="stylesheet" th:href="@{/css/jquery/jquery.datetimepicker.css}"/>
-
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -21,10 +23,27 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#" th:href="@{/admin/home}">F1 Betting</a>
-                <form th:action="@{/logout}" th:method="POST">
-                    <input type="submit" value="Logout" />
-                </form>
             </div>
+
+            <form id="logout-form" th:action="@{/logout}" th:method="POST"></form>
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown" sec:authorize="isAuthenticated()">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span sec:authentication="name"></span> <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" onclick="$('#logout-form').submit()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
         </nav>
     </header>
 
