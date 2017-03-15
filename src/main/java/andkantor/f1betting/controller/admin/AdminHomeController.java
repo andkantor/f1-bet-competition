@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class HomeController {
+public class AdminHomeController {
 
     @Autowired
     ConfigurationManager configurationManager;
