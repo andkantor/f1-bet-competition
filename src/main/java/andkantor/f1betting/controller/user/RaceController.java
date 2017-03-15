@@ -3,6 +3,7 @@ package andkantor.f1betting.controller.user;
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.User;
 import andkantor.f1betting.repository.BetRepository;
+import andkantor.f1betting.repository.PenaltyRepository;
 import andkantor.f1betting.repository.RaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class RaceController extends BaseController {
     RaceRepository raceRepository;
 
     @Autowired
+    PenaltyRepository penaltyRepository;
+
+    @Autowired
     BetRepository betRepository;
 
     @RequestMapping(value = "/{id}/view")
@@ -26,6 +30,7 @@ public class RaceController extends BaseController {
         Race race = raceRepository.findOne(id);
 
         model.addAttribute("race", race);
+        model.addAttribute("penalties", penaltyRepository.findByRace(race));
         model.addAttribute("bets", betRepository.findByUserAndRace(user, race));
 
         return "user/race/view";

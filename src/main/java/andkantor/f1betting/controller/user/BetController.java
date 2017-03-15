@@ -26,9 +26,6 @@ import java.util.stream.IntStream;
 public class BetController extends BaseController {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     RaceRepository raceRepository;
 
     @Autowired
