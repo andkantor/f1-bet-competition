@@ -3,12 +3,12 @@ package andkantor.f1betting.controller.admin;
 import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.FinalPosition;
 import andkantor.f1betting.entity.Race;
+import andkantor.f1betting.entity.RacePoint;
 import andkantor.f1betting.form.PenaltyForm;
+import andkantor.f1betting.model.calculator.CalculationContext;
+import andkantor.f1betting.model.calculator.RacePointCalculator;
 import andkantor.f1betting.model.race.RaceResult;
-import andkantor.f1betting.repository.DriverRepository;
-import andkantor.f1betting.repository.FinalPositionRepository;
-import andkantor.f1betting.repository.PenaltyRepository;
-import andkantor.f1betting.repository.RaceRepository;
+import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +35,15 @@ public class RaceResultController {
 
     @Autowired
     FinalPositionRepository finalPositionRepository;
+
+    @Autowired
+    PenaltyRepository penaltyRepository;
+
+    @Autowired
+    RacePointRepository racePointRepository;
+
+    @Autowired
+    RacePointCalculator racePointCalculator;
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@PathVariable Long id, PenaltyForm form, Model model) {
@@ -66,6 +75,10 @@ public class RaceResultController {
             finalPosition.setRace(race);
             finalPositionRepository.save(finalPosition);
         });
+
+        CalculationContext context = new CalculationContext(raceResult, penaltyRepository.findByRace(race));
+        racePointCalculator.calculate(race, context)
+                .forEach(racePointRepository::save);
 
         return "redirect:/admin/race/" + id + "/view";
     }

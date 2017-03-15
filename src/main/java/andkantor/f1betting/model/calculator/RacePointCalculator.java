@@ -1,36 +1,44 @@
 package andkantor.f1betting.model.calculator;
 
-import andkantor.f1betting.entity.Bet;
-import andkantor.f1betting.entity.Point;
-import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.entity.User;
-import andkantor.f1betting.model.bet.BetProvider;
+import andkantor.f1betting.entity.*;
+import andkantor.f1betting.model.user.UserProvider;
+import andkantor.f1betting.repository.BetRepository;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class RacePointCalculator {
 
-    private BetProvider betProvider;
+    private BetRepository betRepository;
+    private UserProvider userProvider;
     private BetPointCalculator betPointCalculator;
-    private CalculationContext context;
 
     public RacePointCalculator(
-            BetProvider betProvider,
-            BetPointCalculator betPointCalculator,
-            CalculationContext context
+            BetRepository betRepository,
+            UserProvider userProvider,
+            BetPointCalculator betPointCalculator
     ) {
-        this.betProvider = betProvider;
+        this.betRepository = betRepository;
+        this.userProvider = userProvider;
         this.betPointCalculator = betPointCalculator;
-        this.context = context;
     }
 
-    public Map<Bet, Point> calculate(User user, Race race) {
-        List<Bet> bets = betProvider.getBets(user, race);
+    public List<RacePoint> calculate(Race race, CalculationContext context) {
+        List<Bet> bets = betRepository.findByRace(race);
+        List<User> users = userProvider.getActiveUsers();
 
-        return bets.stream().collect(Collectors.toMap(
-                bet -> bet,
-                bet -> betPointCalculator.calculatePoints(bet, context)));
+        List<RacePoint> racePoints = new ArrayList<>();
+
+        users.forEach(user -> {
+            Optional<Point> point = bets.stream()
+                    .filter(bet -> bet.getUser().equals(user))
+                    .map(bet -> betPointCalculator.calculatePoints(bet, context))
+                    .reduce(Point::add);
+
+            racePoints.add(new RacePoint(user, race, point.orElse(Point.ZERO)));
+        });
+
+        return racePoints;
     }
 }

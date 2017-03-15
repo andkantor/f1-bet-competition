@@ -13,6 +13,8 @@ public interface BetRepository extends CrudRepository<Bet, Bet.BetId> {
 
     List<Bet> findByUserAndRace(User user, Race race);
 
+    List<Bet> findByRace(Race race);
+
     @Transactional
     void deleteByUserAndRace(User user, Race race);
 
