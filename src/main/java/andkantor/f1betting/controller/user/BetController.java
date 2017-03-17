@@ -4,11 +4,9 @@ import andkantor.f1betting.entity.Bet;
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.User;
 import andkantor.f1betting.form.BetForm;
+import andkantor.f1betting.model.Flash;
 import andkantor.f1betting.model.setting.ConfigurationManager;
-import andkantor.f1betting.repository.BetRepository;
-import andkantor.f1betting.repository.DriverRepository;
-import andkantor.f1betting.repository.RaceRepository;
-import andkantor.f1betting.repository.UserRepository;
+import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +33,9 @@ public class BetController extends BaseController {
     BetRepository betRepository;
 
     @Autowired
+    PenaltyRepository penaltyRepository;
+
+    @Autowired
     ConfigurationManager configurationManager;
 
     @RequestMapping(value = "/bet", method = RequestMethod.GET)
@@ -57,6 +58,7 @@ public class BetController extends BaseController {
 
         model.addAttribute("race", race);
         model.addAttribute("drivers", driverRepository.findByActive(true));
+        model.addAttribute("penalties", penaltyRepository.findByRace(race));
 
         return "user/bet/form";
     }
@@ -77,6 +79,8 @@ public class BetController extends BaseController {
             bet.setRace(race);
             betRepository.save(bet);
         });
+
+        flash.setMessage("You have successfully bet on " + race.getName());
 
         return "redirect:/race/" + id + "/view";
     }

@@ -32,6 +32,7 @@ public class RaceController extends BaseController {
         model.addAttribute("race", race);
         model.addAttribute("penalties", penaltyRepository.findByRace(race));
         model.addAttribute("bets", betRepository.findByUserAndRace(user, race));
+        model.addAttribute("flash", flash);
 
         return "user/race/view";
     }

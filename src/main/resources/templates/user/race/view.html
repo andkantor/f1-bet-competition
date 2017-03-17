@@ -7,6 +7,11 @@
 </head>
 <body>
 
+<section layout:fragment="flash">
+    <div th:if="${flash.hasMessage()}" th:text="${flash.popMessage()}"
+         class="alert alert-success" role="alert"></div>
+</section>
+
 <section layout:fragment="content">
 
     <div class="row top-20">
@@ -42,15 +47,16 @@
     <div class="row top-20">
         <div class="col-xs-12">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Driver</th>
-                        <th>Position</th>
-                        <th>Point</th>
+                        <th width="70%">Driver</th>
+                        <th width="15%">Position</th>
+                        <th width="15%">Point</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <tr th:if="${penalties.size() == 0}"><td colspan="3">There are no penalties added yet.</td></tr>
                     <tr th:each="penalty : ${penalties}">
                         <td th:text="${penalty.driver.name}"></td>
                         <td th:text="${penalty.position}"></td>
@@ -78,15 +84,15 @@
     <div class="row top-20">
         <div class="col-xs-12">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Driver</th>
-                        <th>Final Position</th>
+                        <th width="70%">Driver</th>
+                        <th width="30%">Final Position</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${bets.size() == 0}"><td colspan="2">You have not bet on this race yet.</td></tr>
+                    <tr th:if="${bets.size() == 0}"><td colspan="2">You haven't bet on this race yet.</td></tr>
                     <tr th:each="bet : *{bets}" th:if="${bets.size() > 0}">
                         <td th:text="${bet.driver.name}"></td>
                         <td th:text="${bet.finalPosition}"></td>

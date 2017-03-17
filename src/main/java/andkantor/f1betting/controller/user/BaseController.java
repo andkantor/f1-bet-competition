@@ -1,6 +1,7 @@
 package andkantor.f1betting.controller.user;
 
 import andkantor.f1betting.entity.User;
+import andkantor.f1betting.model.Flash;
 import andkantor.f1betting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,9 @@ public class BaseController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    Flash flash;
 
     protected boolean userLoggedIn() {
         return getAuthentication().isAuthenticated()
@@ -25,5 +29,4 @@ public class BaseController {
     private Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
-
 }
