@@ -24,3 +24,11 @@ body {
 #main-navbar {
     margin: 0;
 }
+
+.th-counter {
+    width: 50px;
+}
+
+.logged-in-user {
+    font-weight: bold;
+}

@@ -1,6 +1,7 @@
 package andkantor.f1betting.controller;
 
 import andkantor.f1betting.entity.CumulativePoint;
+import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.Season;
 import andkantor.f1betting.entity.User;
 import andkantor.f1betting.model.setting.ConfigurationManager;
@@ -44,10 +45,18 @@ public class HomeController {
 
         if (activeSeason != 0) {
             Season season = seasonRepository.findOne(activeSeason);
+            List<Race> races = raceRepository.findBySeason(season);
             cumulativePoints = racePointRepository.sumUserPoints(users, season);
 
+            races.sort((race1, race2) -> race1.getStartDateTime().compareTo(race2.getStartDateTime()));
+            Race nextRace = races.stream()
+                    .filter(Race::canBeBetOn)
+                    .findFirst()
+                    .orElse(null);
+
             model.addAttribute("season", season);
-            model.addAttribute("races", raceRepository.findBySeason(season));
+            model.addAttribute("races", races);
+            model.addAttribute("nextRace", nextRace);
         } else {
             cumulativePoints = users.stream()
                     .collect(Collectors.toMap(
