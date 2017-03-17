@@ -8,9 +8,17 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
 
+    @Id
+    @Column(name = "username", unique = true, nullable = false, length = 45)
     private String username;
+
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
+
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserRole> userRoles = new HashSet<>(0);
 
     public User() {
@@ -29,9 +37,6 @@ public class User {
         this.userRoles = userRoles;
     }
 
-    @Id
-    @Column(name = "username", unique = true,
-            nullable = false, length = 45)
     public String getUsername() {
         return this.username;
     }
@@ -40,7 +45,6 @@ public class User {
         this.username = username;
     }
 
-    @Column(name = "password", nullable = false, length = 60)
     public String getPassword() {
         return this.password;
     }
@@ -49,7 +53,6 @@ public class User {
         this.password = password;
     }
 
-    @Column(name = "enabled", nullable = false)
     public boolean isEnabled() {
         return this.enabled;
     }
@@ -58,12 +61,15 @@ public class User {
         this.enabled = enabled;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public Set<UserRole> getUserRoles() {
         return this.userRoles;
     }
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public boolean isAdmin() {
+        return username.equals("admin");
     }
 }

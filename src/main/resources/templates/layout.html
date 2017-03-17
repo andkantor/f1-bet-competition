@@ -37,15 +37,17 @@
                     </ul>
                 </li>
                 <li sec:authorize="!isAuthenticated()">
-                    <a th:href="@{/login}">Login</a>
+                    <a th:href="@{/register}">Register</a>
                 </li>
                 <li sec:authorize="!isAuthenticated()">
-                    <a th:href="@{/register}">Register</a>
+                    <a th:href="@{/login}">Login</a>
                 </li>
             </ul>
 
         </nav>
     </header>
+
+    <section class="flash-message" layout:fragment="flash"></section>
 
     <div id="page-wrapper">
         <div class="container-fluid">

@@ -32,3 +32,13 @@ body {
 .logged-in-user {
     font-weight: bold;
 }
+
+.flash-message > div {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+.bet-now {
+    font-weight: bold;
+    color: #a94442;
+}

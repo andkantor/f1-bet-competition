@@ -1,11 +1,10 @@
 package andkantor.f1betting.controller;
 
-import andkantor.f1betting.entity.CumulativePoint;
-import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.entity.Season;
-import andkantor.f1betting.entity.User;
+import andkantor.f1betting.controller.user.BaseController;
+import andkantor.f1betting.entity.*;
 import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.model.user.UserProvider;
+import andkantor.f1betting.repository.BetRepository;
 import andkantor.f1betting.repository.RacePointRepository;
 import andkantor.f1betting.repository.RaceRepository;
 import andkantor.f1betting.repository.SeasonRepository;
@@ -20,7 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
-public class HomeController {
+public class HomeController extends BaseController {
 
     @Autowired
     SeasonRepository seasonRepository;
@@ -36,6 +35,9 @@ public class HomeController {
 
     @Autowired
     RacePointRepository racePointRepository;
+
+    @Autowired
+    BetRepository betRepository;
 
     @RequestMapping(value = {"/", "/home"})
     public String home(Model model) {
@@ -57,6 +59,12 @@ public class HomeController {
             model.addAttribute("season", season);
             model.addAttribute("races", races);
             model.addAttribute("nextRace", nextRace);
+
+            if (userLoggedIn()) {
+                User user = getUser();
+                List<Bet> bets = betRepository.findByUserAndRace(user, nextRace);
+                model.addAttribute("showBetWarning", bets.isEmpty());
+            }
         } else {
             cumulativePoints = users.stream()
                     .collect(Collectors.toMap(

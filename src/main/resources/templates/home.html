@@ -7,6 +7,12 @@
 </head>
 <body>
 
+<section layout:fragment="flash">
+    <div th:if="${showBetWarning}" class="alert alert-danger" role="alert">
+        You haven't bet on the next race yet. <a th:href="@{/race/{id}/bet(id=${nextRace.id})}" class="bet-now">Bet now</a>
+    </div>
+</section>
+
 <section layout:fragment="content">
     <h1 class="page-header">Welcome to F1 Betting</h1>
 
@@ -29,7 +35,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user, stat : ${users}" th:class="${user.username == #authentication.name ? 'logged-in-user' : ''}">
+                        <tr th:each="user, stat : ${users}"
+                            th:class="${user.username == #authentication.name ? 'logged-in-user' : ''}">
                             <td th:text="${stat.count}"></td>
                             <td th:text="${user.username}"></td>
                             <td th:text="${cumulativePoints.get(user).point}"></td>
@@ -80,7 +87,6 @@
     <div th:if="${season == null}">
         <h3>There is no active season.</h3>
     </div>
-
 
 </section>
 
