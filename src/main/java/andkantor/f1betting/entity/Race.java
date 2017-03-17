@@ -4,9 +4,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import static andkantor.f1betting.model.DateTime.DATE_TIME_FORMAT;
+import static andkantor.f1betting.model.DateTimeFormatter.DATE_TIME_FORMAT;
 
 @Entity
 @Table(name = "race")

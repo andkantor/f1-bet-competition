@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label>Start date and time</label>
-                <p class="form-control-static" th:text="${race.startDateTime}"></p>
+                <p class="form-control-static" th:text="${dateTimeFormatter.format(race.startDateTime)}"></p>
             </div>
         </div>
     </div>

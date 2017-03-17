@@ -1,5 +1,6 @@
 package andkantor.f1betting.config;
 
+import andkantor.f1betting.model.DateTimeFormatter;
 import andkantor.f1betting.model.Flash;
 import andkantor.f1betting.model.calculator.*;
 import andkantor.f1betting.model.setting.ConfigurationManager;
@@ -59,4 +60,8 @@ public class F1BettingAppConfig {
         return new Flash();
     }
 
+    @Bean
+    public DateTimeFormatter dateTimeFormatter() {
+        return new DateTimeFormatter();
+    }
 }

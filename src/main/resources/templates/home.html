@@ -75,7 +75,7 @@
                                 </a>
                             </td>
                             <td th:text="${race.location}"></td>
-                            <td th:text="${race.startDateTime}"></td>
+                            <td th:text="${dateTimeFormatter.format(race.startDateTime)}"></td>
                         </tr>
                         </tbody>
                     </table>
