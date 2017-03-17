@@ -36,7 +36,7 @@ public class HomeController {
     @Autowired
     RacePointRepository racePointRepository;
 
-    @RequestMapping("/home")
+    @RequestMapping(value = {"/", "/home"})
     public String home(Model model) {
         Long activeSeason = configurationManager.getConfiguration().getActiveSeason();
         List<User> users = userProvider.getActiveUsers();
