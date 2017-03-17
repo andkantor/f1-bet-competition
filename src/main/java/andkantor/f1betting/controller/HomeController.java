@@ -40,32 +40,36 @@ public class HomeController {
     public String home(Model model) {
         Long activeSeason = configurationManager.getConfiguration().getActiveSeason();
         List<User> users = userProvider.getActiveUsers();
+        Map<User, CumulativePoint> cumulativePoints;
 
         if (activeSeason != 0) {
             Season season = seasonRepository.findOne(activeSeason);
-            Map<User, CumulativePoint> cumulativePoints = racePointRepository.sumUserPoints(users, season);
+            cumulativePoints = racePointRepository.sumUserPoints(users, season);
 
             model.addAttribute("season", season);
             model.addAttribute("races", raceRepository.findBySeason(season));
-            model.addAttribute("cumulativePoints", cumulativePoints);
-
-            users.sort((user1, user2) -> cumulativePoints.get(user1).getPoint()
-                    .compareTo(cumulativePoints.get(user2).getPoint()));
-
         } else {
-            model.addAttribute("cumulativePoints", users.stream()
+            cumulativePoints = users.stream()
                     .collect(Collectors.toMap(
                             user -> user,
-                            user -> new CumulativePoint(user.getUsername(), BigDecimal.ZERO))));
-
-            users.sort((user1, user2) -> user1.getUsername()
-                    .compareTo(user2.getUsername()));
-
+                            user -> new CumulativePoint(user.getUsername(), BigDecimal.ZERO)));
         }
 
+        users.sort((user1, user2) -> compareUsers(user1, user2, cumulativePoints));
+
+        model.addAttribute("cumulativePoints", cumulativePoints);
         model.addAttribute("users", users);
 
         return "home";
+    }
+
+    private int compareUsers(User user1, User user2, Map<User, CumulativePoint> cumulativePoints) {
+        int compareByPoints = cumulativePoints.get(user1).getPoint()
+                .compareTo(cumulativePoints.get(user2).getPoint());
+
+        return compareByPoints == 0
+                ? user1.getUsername().compareTo(user2.getUsername())
+                : compareByPoints;
     }
 
 }
