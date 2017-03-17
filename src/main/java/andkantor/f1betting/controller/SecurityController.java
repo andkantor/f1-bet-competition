@@ -3,8 +3,12 @@ package andkantor.f1betting.controller;
 import andkantor.f1betting.entity.User;
 import andkantor.f1betting.entity.UserRole;
 import andkantor.f1betting.model.security.RegistrationForm;
+import andkantor.f1betting.model.security.UserDetailsProvider;
 import andkantor.f1betting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +27,9 @@ public class SecurityController {
     UserRepository userRepository;
 
     @Autowired
+    UserDetailsProvider userDetailsProvider;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -36,6 +43,8 @@ public class SecurityController {
             User user = new User(form.getUsername(), passwordEncoder.encode(form.getPassword()), true);
             user.getUserRoles().add(new UserRole(user, "USER"));
             userRepository.save(user);
+
+            loginRegisteredUser(user);
         } else {
             return "security/register";
         }
@@ -47,6 +56,14 @@ public class SecurityController {
     public String login(@RequestParam(required = false) String error, Model model) {
         model.addAttribute("loginError", error);
         return "security/login";
+    }
+
+    private void loginRegisteredUser(User user) {
+        UserDetails userDetails = userDetailsProvider.loadUserByUsername(user.getUsername());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
 }

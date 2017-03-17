@@ -1,8 +1,8 @@
 package andkantor.f1betting.entity;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
@@ -66,5 +66,4 @@ public class User {
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
-
 }
