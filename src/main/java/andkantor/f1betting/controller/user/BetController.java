@@ -1,8 +1,6 @@
 package andkantor.f1betting.controller.user;
 
-import andkantor.f1betting.entity.Bet;
-import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.entity.User;
+import andkantor.f1betting.entity.*;
 import andkantor.f1betting.form.BetForm;
 import andkantor.f1betting.model.Flash;
 import andkantor.f1betting.model.setting.Configuration;
@@ -11,6 +9,7 @@ import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,40 +39,36 @@ public class BetController extends BaseController {
     ConfigurationManager configurationManager;
 
     @RequestMapping(value = "/bet", method = RequestMethod.GET)
-    public String bet(@PathVariable Long id, @ModelAttribute BetForm betForm, Model model) {
+    public String bet(@PathVariable Long id, @ModelAttribute BetForm betForm) {
         Configuration configuration = configurationManager.getConfiguration();
         User user = getUser();
-        Race race = raceRepository.findOne(id);
+        Race race = race(id);
 
         if (!race.canBeBetOn()) {
             return "redirect:/race/" + id + "/view";
         }
 
         List<Bet> bets = betRepository.findByUserAndRace(user, race);
-
         if (bets.isEmpty()) {
             IntStream.range(0, configuration.getNumberOfDriversToBetOn())
                     .forEach(value -> bets.add(value, new Bet()));
         }
-
         betForm.setBets(bets);
-        int[] positions = IntStream.range(1, configuration.getNumberOfPositionsToBetOn() + 1).toArray();
-
-        model.addAttribute("race", race);
-        model.addAttribute("drivers", driverRepository.findByActive(true));
-        model.addAttribute("positions", positions);
-        model.addAttribute("penalties", penaltyRepository.findByRace(race));
 
         return "user/bet/form";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@PathVariable Long id, @ModelAttribute @Valid BetForm betForm) {
+    public String save(@PathVariable Long id, @ModelAttribute @Valid BetForm betForm, BindingResult result) {
         User user = getUser();
         Race race = raceRepository.findOne(id);
 
         if (!race.canBeBetOn()) {
             return "redirect:/race/" + id + "/view";
+        }
+
+        if (result.hasErrors()) {
+            return "user/bet/form";
         }
 
         betRepository.deleteByUserAndRace(user, race);
@@ -87,6 +82,26 @@ public class BetController extends BaseController {
         flash.setMessage("You have successfully bet on " + race.getName());
 
         return "redirect:/race/" + id + "/view";
+    }
+
+    @ModelAttribute(name = "race")
+    public Race race(@PathVariable Long id) {
+        return raceRepository.findOne(id);
+    }
+
+    @ModelAttribute(name = "penalties")
+    public List<Penalty> penalties(@PathVariable Long id) {
+        return penaltyRepository.findByRace(race(id));
+    }
+
+    @ModelAttribute(name = "drivers")
+    public List<Driver> drivers() {
+        return driverRepository.findByActive(true);
+    }
+
+    @ModelAttribute(name = "positions")
+    public int[] positions() {
+        return IntStream.range(1, configurationManager.getConfiguration().getNumberOfPositionsToBetOn() + 1).toArray();
     }
 
 }
