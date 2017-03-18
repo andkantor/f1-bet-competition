@@ -77,7 +77,13 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" th:field="*{bets[__${stat.index}__].finalPosition.position}"/>
+                                <select class="form-control" th:field="*{bets[__${stat.index}__].finalPosition.position}">
+                                    <option value="0">-- Choose --</option>
+                                    <option th:each="position : ${positions}"
+                                            th:value="${position}"
+                                            th:text="${position}">
+                                    </option>
+                                </select>
                             </td>
                         </tr>
                         </tbody>

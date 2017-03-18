@@ -33,6 +33,14 @@ public class Configuration {
         settings.put("number_of_drivers_to_bet_on", String.valueOf(numberOfDriversToBetOn));
     }
 
+    public int getNumberOfPositionsToBetOn() {
+        return Integer.valueOf(get("number_of_positions_to_bet_on", "10"));
+    }
+
+    public void setNumberOfPositionsToBetOn(int numberOfPositionsToBetOn) {
+        settings.put("number_of_positions_to_bet_on", String.valueOf(numberOfPositionsToBetOn));
+    }
+
     public Map<String, String> getSettings() {
         return settings;
     }

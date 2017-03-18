@@ -5,6 +5,7 @@ import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.User;
 import andkantor.f1betting.form.BetForm;
 import andkantor.f1betting.model.Flash;
+import andkantor.f1betting.model.setting.Configuration;
 import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class BetController extends BaseController {
 
     @RequestMapping(value = "/bet", method = RequestMethod.GET)
     public String bet(@PathVariable Long id, @ModelAttribute BetForm betForm, Model model) {
+        Configuration configuration = configurationManager.getConfiguration();
         User user = getUser();
         Race race = raceRepository.findOne(id);
 
@@ -50,14 +52,16 @@ public class BetController extends BaseController {
         List<Bet> bets = betRepository.findByUserAndRace(user, race);
 
         if (bets.isEmpty()) {
-            IntStream.range(0, configurationManager.getConfiguration().getNumberOfDriversToBetOn())
+            IntStream.range(0, configuration.getNumberOfDriversToBetOn())
                     .forEach(value -> bets.add(value, new Bet()));
         }
 
         betForm.setBets(bets);
+        int[] positions = IntStream.range(1, configuration.getNumberOfPositionsToBetOn() + 1).toArray();
 
         model.addAttribute("race", race);
         model.addAttribute("drivers", driverRepository.findByActive(true));
+        model.addAttribute("positions", positions);
         model.addAttribute("penalties", penaltyRepository.findByRace(race));
 
         return "user/bet/form";
