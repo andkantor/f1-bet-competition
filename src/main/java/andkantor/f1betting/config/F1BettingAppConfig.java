@@ -5,9 +5,7 @@ import andkantor.f1betting.model.Flash;
 import andkantor.f1betting.model.calculator.*;
 import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.model.user.UserProvider;
-import andkantor.f1betting.repository.BetRepository;
-import andkantor.f1betting.repository.SettingRepository;
-import andkantor.f1betting.repository.UserRepository;
+import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +27,12 @@ public class F1BettingAppConfig {
 
     @Autowired
     BetRepository betRepository;
+
+    @Autowired
+    DriverRepository driverRepository;
+
+    @Autowired
+    PenaltyRepository penaltyRepository;
 
     @Bean
     public ConfigurationManager configurationManager() {
@@ -52,6 +56,11 @@ public class F1BettingAppConfig {
                 new NearMissCalculator(),
                 new PenaltyCalculator()
         ));
+    }
+
+    @Bean
+    public PenaltyProvider penaltyProvider() {
+        return new PenaltyProvider(penaltyRepository, driverRepository);
     }
 
     @Bean

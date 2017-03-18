@@ -2,8 +2,8 @@ package andkantor.f1betting.controller.user;
 
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.User;
+import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.repository.BetRepository;
-import andkantor.f1betting.repository.PenaltyRepository;
 import andkantor.f1betting.repository.RaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +19,10 @@ public class RaceController extends BaseController {
     RaceRepository raceRepository;
 
     @Autowired
-    PenaltyRepository penaltyRepository;
+    BetRepository betRepository;
 
     @Autowired
-    BetRepository betRepository;
+    ConfigurationManager configurationManager;
 
     @RequestMapping(value = "/{id}/view")
     public String view(@PathVariable Long id, Model model) {
@@ -30,7 +30,6 @@ public class RaceController extends BaseController {
         Race race = raceRepository.findOne(id);
 
         model.addAttribute("race", race);
-        model.addAttribute("penalties", penaltyRepository.findByRace(race));
         model.addAttribute("bets", betRepository.findByUserAndRace(user, race));
         model.addAttribute("flash", flash);
 
