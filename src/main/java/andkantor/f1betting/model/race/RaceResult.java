@@ -4,7 +4,6 @@ import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.FinalPosition;
 import andkantor.f1betting.entity.Position;
 import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.model.race.exception.DriverNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,8 +41,9 @@ public class RaceResult {
                 .filter(finalPosition -> finalPosition.getDriver() == driver)
                 .findFirst();
 
-        return position
-                .orElseThrow(DriverNotFoundException::new)
-                .getPosition();
+        if (position.isPresent()) {
+            return position.get().getPosition();
+        }
+        return Position.NOT_FINISHED;
     }
 }

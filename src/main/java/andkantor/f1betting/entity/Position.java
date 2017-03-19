@@ -8,6 +8,8 @@ import javax.persistence.Embeddable;
 @Access(AccessType.PROPERTY)
 public class Position {
 
+    public static final Position NOT_FINISHED = new Position(-100);
+
     private int position;
 
     public Position() {

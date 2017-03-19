@@ -90,14 +90,14 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Driver</th>
                         <th>Position</th>
+                        <th>Driver</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="finalPosition : ${raceResult.finalPositions}">
-                        <td th:text="${finalPosition.driver.name}"></td>
                         <td th:text="${finalPosition.position}"></td>
+                        <td th:text="${finalPosition.driverName}"></td>
                     </tr>
                     </tbody>
                 </table>

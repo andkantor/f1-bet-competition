@@ -2,12 +2,13 @@ package andkantor.f1betting.controller.admin;
 
 import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.FinalPosition;
+import andkantor.f1betting.entity.Position;
 import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.entity.RacePoint;
 import andkantor.f1betting.form.PenaltyForm;
 import andkantor.f1betting.model.calculator.CalculationContext;
 import andkantor.f1betting.model.calculator.RacePointCalculator;
 import andkantor.f1betting.model.race.RaceResult;
+import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.stream.IntStream;
 
-import static andkantor.f1betting.entity.Position.createPosition;
+import static java.util.stream.Collectors.toList;
 
 @Controller
 @RequestMapping(value = "/admin/race/{id}/result")
@@ -45,17 +46,24 @@ public class RaceResultController {
     @Autowired
     RacePointCalculator racePointCalculator;
 
+    @Autowired
+    ConfigurationManager configurationManager;
+
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@PathVariable Long id, PenaltyForm form, Model model) {
         Race race = raceRepository.findOne(id);
         Iterable<Driver> drivers = driverRepository.findByActive(true);
         List<FinalPosition> finalPositionList = finalPositionRepository.findByRace(race);
 
-        List<FinalPosition> finalPositions = StreamSupport.stream(drivers.spliterator(), false)
-                .map(driver -> finalPositionList.stream()
-                        .filter(finalPosition -> finalPosition.getDriver() == driver)
+        List<Position> positions = IntStream.range(1, configurationManager.getConfiguration().getNumberOfPositionsToBetOn() + 1)
+                .mapToObj(Position::new)
+                .collect(toList());
+
+        List<FinalPosition> finalPositions = positions.stream()
+                .map(position -> finalPositionList.stream()
+                        .filter(finalPosition -> finalPosition.getPosition().equals(position))
                         .findAny()
-                        .orElse(new FinalPosition(race, driver, createPosition(0))))
+                        .orElse(new FinalPosition(race, null, position)))
                 .collect(Collectors.toList());
 
         model.addAttribute("race", race);
@@ -71,10 +79,8 @@ public class RaceResultController {
         race.setResultSet(true);
         raceRepository.save(race);
 
-        raceResult.getFinalPositions().forEach(finalPosition -> {
-            finalPosition.setRace(race);
-            finalPositionRepository.save(finalPosition);
-        });
+        raceResult.getFinalPositions()
+                .forEach(finalPositionRepository::save);
 
         CalculationContext context = new CalculationContext(raceResult, penaltyRepository.findByRace(race));
         racePointCalculator.calculate(race, context)

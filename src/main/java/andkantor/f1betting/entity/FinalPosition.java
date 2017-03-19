@@ -5,9 +5,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "final_position")
-@AttributeOverrides({
-        @AttributeOverride(name="position", column = @Column(nullable = true))
-})
 @IdClass(FinalPosition.FinalPositionId.class)
 public class FinalPosition {
 
@@ -15,13 +12,13 @@ public class FinalPosition {
     @ManyToOne
     private Race race;
 
+    //TODO make it Position
     @Id
+    @Column(name = "position")
+    private int positionAsInt;
+
     @ManyToOne
     private Driver driver;
-
-    @Embedded
-    @Column(name = "position")
-    private Position position;
 
     public FinalPosition() {
     }
@@ -29,7 +26,7 @@ public class FinalPosition {
     public FinalPosition(Race race, Driver driver, Position position) {
         this.race = race;
         this.driver = driver;
-        this.position = position;
+        this.positionAsInt = position.getPosition();
     }
 
     public Race getRace() {
@@ -49,15 +46,30 @@ public class FinalPosition {
     }
 
     public Position getPosition() {
-        return position;
+        return new Position(positionAsInt);
     }
 
     public void setPosition(Position position) {
-        this.position = position;
+        this.positionAsInt = position.getPosition();
+    }
+
+    public int getPositionAsInt() {
+        return positionAsInt;
+    }
+
+    public void setPositionAsInt(int positionAsInt) {
+        this.positionAsInt = positionAsInt;
+    }
+
+    public String getDriverName() {
+        if (driver == null) {
+            return "EMPTY";
+        }
+        return driver.getName();
     }
 
     public static class FinalPositionId implements Serializable {
         public Long race;
-        public Long driver;
+        public int positionAsInt;
     }
 }
