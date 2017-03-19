@@ -42,3 +42,7 @@ body {
     font-weight: bold;
     color: #a94442;
 }
+
+.race-summary {
+    font-size: 20px;
+}
