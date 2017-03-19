@@ -21,7 +21,8 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
                         <th>Enabled</th>
                         <th></th>
                     </tr>
@@ -29,8 +30,9 @@
                     <tbody>
                     <tr th:each="user : ${users}">
                         <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
                         <td th:text="${user.enabled ? 'Yes' : 'No'}"></td>
-                        <td width="90px">
+                        <td width="80px">
                             <div class="btn-group">
                                 <a href="#" class="btn btn-default" th:href="@{/admin/user/{username}/edit(username=${user.username})}">Edit</a>
                             </div>

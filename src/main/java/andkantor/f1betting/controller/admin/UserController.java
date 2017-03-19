@@ -35,6 +35,7 @@ public class UserController {
         User user = userRepository.findByUsername(username);
 
         user.setUsername(userForm.getUsername());
+        user.setEmail(userForm.getEmail());
         user.setEnabled(userForm.isEnabled());
         if (userForm.getPassword().length() > 0) {
             user.setPassword(passwordEncoder.encode(userForm.getPassword()));

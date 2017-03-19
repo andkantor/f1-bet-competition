@@ -12,6 +12,9 @@ public class User {
     @Column(name = "username", unique = true, nullable = false, length = 45)
     private String username;
 
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
@@ -24,14 +27,16 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, boolean enabled) {
+    public User(String username, String email, String password, boolean enabled) {
         this.username = username;
+        this.email = email;
         this.password = password;
         this.enabled = enabled;
     }
 
-    public User(String username, String password, boolean enabled, Set<UserRole> userRoles) {
+    public User(String username, String email, String password, boolean enabled, Set<UserRole> userRoles) {
         this.username = username;
+        this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.userRoles = userRoles;
@@ -43,6 +48,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

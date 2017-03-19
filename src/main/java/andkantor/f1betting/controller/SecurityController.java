@@ -40,7 +40,7 @@ public class SecurityController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String postRegister(@ModelAttribute(name = "form") @Valid RegistrationForm form, BindingResult result) {
         if (!result.hasErrors()) {
-            User user = new User(form.getUsername(), passwordEncoder.encode(form.getPassword()), true);
+            User user = new User(form.getUsername(), form.getEmail(), passwordEncoder.encode(form.getPassword()), true);
             user.getUserRoles().add(new UserRole(user, "USER"));
             userRepository.save(user);
 

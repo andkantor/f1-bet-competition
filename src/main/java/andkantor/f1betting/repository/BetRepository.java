@@ -1,7 +1,6 @@
 package andkantor.f1betting.repository;
 
 import andkantor.f1betting.entity.Bet;
-import andkantor.f1betting.entity.FinalPosition;
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.entity.User;
 import org.springframework.data.repository.CrudRepository;
