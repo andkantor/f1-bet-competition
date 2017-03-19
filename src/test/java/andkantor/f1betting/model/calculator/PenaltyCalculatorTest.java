@@ -39,6 +39,7 @@ public class PenaltyCalculatorTest {
         underTest = new PenaltyCalculator();
 
         doReturn(driver).when(bet).getDriver();
+        doReturn(createPosition(1)).when(context).getPosition(driver);
         doReturn(Optional.of(penalty)).when(context).getPenalty(driver, createPosition(1));
         doReturn(new Point(-6)).when(penalty).getPoint();
     }

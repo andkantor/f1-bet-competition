@@ -1,19 +1,20 @@
 package andkantor.f1betting.model.calculator;
 
+import andkantor.f1betting.entity.Bet;
 import andkantor.f1betting.entity.Penalty;
 import andkantor.f1betting.entity.Point;
-import andkantor.f1betting.entity.Bet;
-
-import java.util.Optional;
+import andkantor.f1betting.entity.Position;
 
 public class PenaltyCalculator implements PointCalculator {
 
     @Override
     public Point calculate(Bet bet, CalculationContext context) {
-        Optional<Penalty> penalty = context.getPenalty(bet.getDriver(), bet.getFinalPosition());
+        Position finalPosition = context.getPosition(bet.getDriver());
 
-        if (penalty.isPresent()) {
-            return penalty.get().getPoint();
+        if (bet.getFinalPosition().difference(finalPosition) < 2) {
+            return context.getPenalty(bet.getDriver(), bet.getFinalPosition())
+                    .map(Penalty::getPoint)
+                    .orElse(Point.ZERO);
         }
 
         return Point.ZERO;
