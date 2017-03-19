@@ -59,7 +59,7 @@ public class BetController extends BaseController {
         }
         betForm.setBets(bets);
 
-        return "user/bet/form";
+        return "race/bet-form";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -72,7 +72,7 @@ public class BetController extends BaseController {
         }
 
         if (result.hasErrors()) {
-            return "user/bet/form";
+            return "race/bet-form";
         }
 
         betRepository.deleteByUserAndRace(user, race);

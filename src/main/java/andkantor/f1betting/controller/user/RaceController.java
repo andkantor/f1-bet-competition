@@ -65,7 +65,7 @@ public class RaceController extends BaseController {
             model.addAttribute("betPointMap", betPointMap);
         }
 
-        return "user/race/view";
+        return "race/view";
     }
 
 }
