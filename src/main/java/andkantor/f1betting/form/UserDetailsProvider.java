@@ -1,4 +1,4 @@
-package andkantor.f1betting.model.security;
+package andkantor.f1betting.form;
 
 import andkantor.f1betting.entity.UserRole;
 import andkantor.f1betting.repository.UserRepository;

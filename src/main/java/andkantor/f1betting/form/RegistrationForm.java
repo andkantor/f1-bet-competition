@@ -1,11 +1,13 @@
-package andkantor.f1betting.model.security;
+package andkantor.f1betting.form;
 
-import andkantor.f1betting.model.security.annotation.PasswordMatches;
+import andkantor.f1betting.form.annotation.UniqueUsername;
+import andkantor.f1betting.form.annotation.PasswordMatches;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 
+@UniqueUsername
 @PasswordMatches
 public class RegistrationForm {
 

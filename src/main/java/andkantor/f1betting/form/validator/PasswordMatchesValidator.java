@@ -1,7 +1,7 @@
-package andkantor.f1betting.model.security.validator;
+package andkantor.f1betting.form.validator;
 
-import andkantor.f1betting.model.security.RegistrationForm;
-import andkantor.f1betting.model.security.annotation.PasswordMatches;
+import andkantor.f1betting.form.RegistrationForm;
+import andkantor.f1betting.form.annotation.PasswordMatches;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

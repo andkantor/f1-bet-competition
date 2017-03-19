@@ -2,8 +2,8 @@ package andkantor.f1betting.controller;
 
 import andkantor.f1betting.entity.User;
 import andkantor.f1betting.entity.UserRole;
-import andkantor.f1betting.model.security.RegistrationForm;
-import andkantor.f1betting.model.security.UserDetailsProvider;
+import andkantor.f1betting.form.RegistrationForm;
+import andkantor.f1betting.form.UserDetailsProvider;
 import andkantor.f1betting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
