@@ -63,7 +63,7 @@ public class FinalPosition {
 
     public String getDriverName() {
         if (driver == null) {
-            return "EMPTY";
+            return "N/A";
         }
         return driver.getName();
     }

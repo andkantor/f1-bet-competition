@@ -10,6 +10,8 @@ public class Position {
 
     public static final Position NOT_FINISHED = new Position(-100);
 
+    private static final String NOT_APPLICABLE = "N/A";
+
     private int position;
 
     public Position() {
@@ -53,6 +55,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return String.valueOf(position);
+        return equals(NOT_FINISHED) ? NOT_APPLICABLE : String.valueOf(position);
     }
 }
