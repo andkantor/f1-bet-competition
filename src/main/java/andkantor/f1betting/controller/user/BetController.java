@@ -100,7 +100,9 @@ public class BetController extends BaseController {
 
     @ModelAttribute(name = "drivers")
     public List<Driver> drivers() {
-        return driverRepository.findByActive(true);
+        List<Driver> drivers = driverRepository.findByActive(true);
+        drivers.sort((driver1, driver2) -> driver1.getName().compareTo(driver2.getName()));
+        return drivers;
     }
 
     @ModelAttribute(name = "positions")
