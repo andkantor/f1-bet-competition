@@ -11,8 +11,9 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
     }
+
     @Override
-    public boolean isValid(Object obj, ConstraintValidatorContext context){
+    public boolean isValid(Object obj, ConstraintValidatorContext context) {
         RegistrationForm registrationForm = (RegistrationForm) obj;
         return registrationForm.getPassword().equals(registrationForm.getConfirmPassword());
     }

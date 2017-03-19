@@ -15,8 +15,9 @@ public class UniqueDriverValidator implements ConstraintValidator<UniqueDriver, 
     @Override
     public void initialize(UniqueDriver constraintAnnotation) {
     }
+
     @Override
-    public boolean isValid(Object obj, ConstraintValidatorContext context){
+    public boolean isValid(Object obj, ConstraintValidatorContext context) {
         BetForm betForm = (BetForm) obj;
         Set<Driver> driverSet = betForm.getBets().stream()
                 .map(Bet::getDriver)

@@ -1,7 +1,6 @@
 package andkantor.f1betting.form.validator;
 
 import andkantor.f1betting.entity.Bet;
-import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.Position;
 import andkantor.f1betting.form.BetForm;
 import andkantor.f1betting.form.annotation.UniquePosition;
@@ -16,8 +15,9 @@ public class UniquePositionValidator implements ConstraintValidator<UniquePositi
     @Override
     public void initialize(UniquePosition constraintAnnotation) {
     }
+
     @Override
-    public boolean isValid(Object obj, ConstraintValidatorContext context){
+    public boolean isValid(Object obj, ConstraintValidatorContext context) {
         BetForm betForm = (BetForm) obj;
         Set<Position> positionSet = betForm.getBets().stream()
                 .map(Bet::getFinalPosition)
