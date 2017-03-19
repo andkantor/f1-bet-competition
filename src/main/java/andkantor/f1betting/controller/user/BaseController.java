@@ -39,4 +39,9 @@ public class BaseController {
     protected DateTimeFormatter dateTimeFormatter() {
         return dateTimeFormatter;
     }
+
+    @ModelAttribute
+    protected Flash flash() {
+        return flash;
+    }
 }

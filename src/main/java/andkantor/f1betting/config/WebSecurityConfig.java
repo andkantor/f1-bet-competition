@@ -1,6 +1,7 @@
 package andkantor.f1betting.config;
 
 import andkantor.f1betting.form.UserDetailsProvider;
+import andkantor.f1betting.model.Flash;
 import andkantor.f1betting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    Flash flash;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -57,7 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .logout()
-                .logoutSuccessUrl("/home")
+                .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
+                    flash.setMessage("You have successfully logged out");
+                    httpServletResponse.sendRedirect("/home");
+                })
                 .permitAll();
     }
 

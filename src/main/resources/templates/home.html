@@ -11,6 +11,8 @@
     <div th:if="${showBetWarning}" class="alert alert-danger" role="alert">
         You haven't bet on the next race yet. <a th:href="@{/race/{id}/bet(id=${nextRace.id})}" class="bet-now">Bet now</a>
     </div>
+    <div th:if="${flash.hasMessage()}" th:text="${flash.popMessage()}"
+         class="alert alert-success" role="alert"></div>
 </section>
 
 <section layout:fragment="content">
