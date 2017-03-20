@@ -1,6 +1,6 @@
 package andkantor.f1betting.form.validator;
 
-import andkantor.f1betting.form.RegistrationForm;
+import andkantor.f1betting.form.PasswordForm;
 import andkantor.f1betting.form.annotation.PasswordMatches;
 
 import javax.validation.ConstraintValidator;
@@ -14,7 +14,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
-        RegistrationForm registrationForm = (RegistrationForm) obj;
-        return registrationForm.getPassword().equals(registrationForm.getConfirmPassword());
+        PasswordForm passwordForm = (PasswordForm) obj;
+        return passwordForm.getPassword().equals(passwordForm.getConfirmPassword());
     }
 }

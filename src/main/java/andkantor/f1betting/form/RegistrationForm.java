@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @UniqueUsername
 @UniqueEmail
 @PasswordMatches
-public class RegistrationForm {
+public class RegistrationForm implements PasswordForm {
 
     @NotNull(message = "Username cannot be empty")
     @NotEmpty(message = "Username cannot be empty")
@@ -49,18 +49,22 @@ public class RegistrationForm {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @Override
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
+    @Override
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
