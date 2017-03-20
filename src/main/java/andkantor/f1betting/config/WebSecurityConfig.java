@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
                     flash.setMessage("You have successfully logged out");
-                    httpServletResponse.sendRedirect("/home");
+                    httpServletResponse.sendRedirect(httpServletRequest.getContextPath().concat("/home"));
                 })
                 .permitAll();
     }
@@ -76,9 +76,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (httpServletRequest, httpServletResponse, authentication) -> {
             if (authentication.getName().equals("admin")) {
-                httpServletResponse.sendRedirect("/admin/home");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath().concat("/admin/home"));
             } else {
-                httpServletResponse.sendRedirect("/home");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath().concat("/home"));
             }
         };
     }
