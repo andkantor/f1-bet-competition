@@ -1,17 +1,11 @@
 package andkantor.f1betting.controller.user;
 
-import andkantor.f1betting.entity.Bet;
-import andkantor.f1betting.entity.Point;
-import andkantor.f1betting.entity.Race;
-import andkantor.f1betting.entity.User;
+import andkantor.f1betting.entity.*;
 import andkantor.f1betting.model.calculator.BetPointCalculator;
 import andkantor.f1betting.model.calculator.CalculationContext;
 import andkantor.f1betting.model.race.RaceResult;
 import andkantor.f1betting.model.setting.ConfigurationManager;
-import andkantor.f1betting.repository.BetRepository;
-import andkantor.f1betting.repository.FinalPositionRepository;
-import andkantor.f1betting.repository.PenaltyRepository;
-import andkantor.f1betting.repository.RaceRepository;
+import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,14 +39,23 @@ public class RaceController extends BaseController {
     @Autowired
     PenaltyRepository penaltyRepository;
 
+    @Autowired
+    WatchRepository watchRepository;
+
     @RequestMapping(value = "/{id}/view")
     public String view(@PathVariable Long id, Model model) {
         User user = getUser();
         Race race = raceRepository.findOne(id);
         List<Bet> bets = betRepository.findByUserAndRace(user, race);
+        Map<User, List<Bet>> watchList = watchRepository.findByWatcher(user).stream()
+                .map(Watch::getWatched)
+                .collect(toMap(
+                        watched -> watched,
+                        watched -> betRepository.findByUserAndRace(watched, race)));
 
         model.addAttribute("race", race);
         model.addAttribute("bets", bets);
+        model.addAttribute("watchList", watchList);
         model.addAttribute("flash", flash);
 
         if (race.isResultSet()) {
