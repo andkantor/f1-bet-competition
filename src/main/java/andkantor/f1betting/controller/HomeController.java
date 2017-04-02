@@ -4,10 +4,7 @@ import andkantor.f1betting.controller.user.BaseController;
 import andkantor.f1betting.entity.*;
 import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.model.user.UserProvider;
-import andkantor.f1betting.repository.BetRepository;
-import andkantor.f1betting.repository.RacePointRepository;
-import andkantor.f1betting.repository.RaceRepository;
-import andkantor.f1betting.repository.SeasonRepository;
+import andkantor.f1betting.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Controller
 public class HomeController extends BaseController {
@@ -38,6 +37,9 @@ public class HomeController extends BaseController {
 
     @Autowired
     BetRepository betRepository;
+
+    @Autowired
+    WatchRepository watchRepository;
 
     @RequestMapping(value = {"/", "/home"})
     public String home(Model model) {
@@ -62,8 +64,15 @@ public class HomeController extends BaseController {
 
             if (userLoggedIn()) {
                 User user = getUser();
-                List<Bet> bets = betRepository.findByUserAndRace(user, nextRace);
-                model.addAttribute("showBetWarning", bets.isEmpty());
+                List<String> watchList = watchRepository.findByWatcher(user).stream()
+                        .map(watch -> watch.getWatched().getUsername())
+                        .collect(toList());
+                model.addAttribute("watchList", watchList);
+
+                if (nextRace != null) {
+                    List<Bet> bets = betRepository.findByUserAndRace(user, nextRace);
+                    model.addAttribute("showBetWarning", bets.isEmpty());
+                }
             }
         } else {
             cumulativePoints = users.stream()

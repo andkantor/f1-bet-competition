@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="layout">
 <head>
     <title>Home</title>
@@ -9,7 +9,8 @@
 
 <section layout:fragment="flash">
     <div th:if="${showBetWarning}" class="alert alert-danger" role="alert">
-        You haven't bet on the next race yet. <a th:href="@{/race/{id}/bet(id=${nextRace.id})}" class="bet-now">Bet now</a>
+        You haven't bet on the next race yet. <a th:href="@{/race/{id}/bet(id=${nextRace.id})}" class="bet-now">Bet
+        now</a>
     </div>
     <div th:if="${flash.hasMessage()}" th:text="${flash.popMessage()}"
          class="alert alert-success" role="alert"></div>
@@ -40,7 +41,13 @@
                         <tr th:each="user, stat : ${users}"
                             th:class="${user.username == #authentication.name ? 'logged-in-user' : ''}">
                             <td th:text="${stat.count}"></td>
-                            <td th:text="${user.username}"></td>
+                            <td>
+                                <span th:text="${user.username}"></span>
+                                <button class="btn btn-xs btn-default watch-btn"
+                                        sec:authorize="isAuthenticated()"
+                                        th:if="${user.username != #authentication.name}"
+                                        th:text="${watchList.contains(user.username) ? 'Unwatch' : 'Watch'}"></button>
+                            </td>
                             <td th:text="${cumulativePoints.get(user).point}"></td>
                         </tr>
                         </tbody>
@@ -90,6 +97,14 @@
         <h3>There is no active season.</h3>
     </div>
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var _csrf_token = /*[[${_csrf.token}]]*/ '';
+        var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+        /*]]>*/
+    </script>
+
+    <script th:src="@{/js/home.js}"></script>
 </section>
 
 </body>
