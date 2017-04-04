@@ -25,10 +25,10 @@
         </div>
         <div class="row top-20">
             <div class="col-xs-12">
-                <div th:if="${users.size() == 0}">
+                <div th:if="${leaderboard.users.size() == 0}">
                     <div>There is no registered user yet.</div>
                 </div>
-                <div th:if="${users.size() > 0}">
+                <div th:if="${leaderboard.users.size() > 0}">
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
@@ -38,9 +38,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user, stat : ${users}"
+                        <tr th:each="user, stat : ${leaderboard.users}"
                             th:class="${user.username == #authentication.name ? 'logged-in-user' : ''}">
-                            <td th:text="${stat.count}"></td>
+                            <td th:text="${leaderboard.getPlace(user)}"></td>
                             <td>
                                 <span th:text="${user.username}"></span>
                                 <button class="btn btn-xs btn-default watch-btn"
@@ -48,7 +48,7 @@
                                         th:if="${user.username != #authentication.name}"
                                         th:text="${watchList.contains(user.username) ? 'Unwatch' : 'Watch'}"></button>
                             </td>
-                            <td th:text="${cumulativePoints.get(user).point}"></td>
+                            <td th:text="${leaderboard.getPoints(user)}"></td>
                         </tr>
                         </tbody>
                     </table>

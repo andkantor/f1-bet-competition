@@ -2,6 +2,7 @@ package andkantor.f1betting.controller;
 
 import andkantor.f1betting.controller.user.BaseController;
 import andkantor.f1betting.entity.*;
+import andkantor.f1betting.model.Leaderboard;
 import andkantor.f1betting.model.setting.ConfigurationManager;
 import andkantor.f1betting.model.user.UserProvider;
 import andkantor.f1betting.repository.*;
@@ -81,21 +82,11 @@ public class HomeController extends BaseController {
                             user -> new CumulativePoint(user.getUsername(), BigDecimal.ZERO)));
         }
 
-        users.sort((user1, user2) -> compareUsers(user1, user2, cumulativePoints));
-
-        model.addAttribute("cumulativePoints", cumulativePoints);
-        model.addAttribute("users", users);
+        model.addAttribute("leaderboard", new Leaderboard(users, cumulativePoints));
 
         return "home";
     }
 
-    private int compareUsers(User user1, User user2, Map<User, CumulativePoint> cumulativePoints) {
-        int compareByPoints = cumulativePoints.get(user1).getPoint()
-                .compareTo(cumulativePoints.get(user2).getPoint());
 
-        return compareByPoints == 0
-                ? user1.getUsername().compareTo(user2.getUsername())
-                : compareByPoints;
-    }
 
 }
