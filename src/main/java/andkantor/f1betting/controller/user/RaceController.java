@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 @Controller
@@ -46,7 +47,7 @@ public class RaceController extends BaseController {
     public String view(@PathVariable Long id, Model model) {
         User user = getUser();
         Race race = raceRepository.findOne(id);
-        List<Bet> bets = betRepository.findByUserAndRace(user, race);
+        List<Bet> userBets = betRepository.findByUserAndRace(user, race);
         Map<User, List<Bet>> watchList = watchRepository.findByWatcher(user).stream()
                 .map(Watch::getWatched)
                 .collect(toMap(
@@ -54,21 +55,30 @@ public class RaceController extends BaseController {
                         watched -> betRepository.findByUserAndRace(watched, race)));
 
         model.addAttribute("race", race);
-        model.addAttribute("bets", bets);
+        model.addAttribute("bets", userBets);
         model.addAttribute("watchList", watchList);
         model.addAttribute("flash", flash);
 
         if (race.isResultSet()) {
             RaceResult raceResult = new RaceResult(race, finalPositionRepository.findByRace(race));
             CalculationContext context = new CalculationContext(raceResult, penaltyRepository.findByRace(race));
-            Map<Bet, Point> betPointMap = bets.stream()
-                    .collect(toMap(b -> b, bet -> betPointCalculator.calculatePoints(bet, context)));
+            Map<Bet, Point> betPointMap = createBetPointMap(userBets, watchList, context);
 
             model.addAttribute("raceResult", raceResult);
             model.addAttribute("betPointMap", betPointMap);
         }
 
         return "race/view";
+    }
+
+    private Map<Bet, Point> createBetPointMap(List<Bet> userBets, Map<User, List<Bet>> watchList, CalculationContext context) {
+        List<Bet> betList = watchList.values().stream()
+                .flatMap(List::stream)
+                .collect(toList());
+        betList.addAll(userBets);
+
+        return betList.stream()
+                .collect(toMap(b -> b, bet -> betPointCalculator.calculatePoints(bet, context)));
     }
 
 }

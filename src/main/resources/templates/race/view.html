@@ -103,9 +103,8 @@
         </div>
 
         <div th:each="watchedUser : ${watchList.keySet()}">
-
             <div class="panel panel-default">
-                <div class="panel-heading" th:text="${'Bets of ' + watchedUser.username}"></div>
+                <div class="panel-heading" th:text="${watchedUser.username}"></div>
                 <div class="panel-body watched-user-bet">
                     <div class="table-responsive" th:if="${watchList.get(watchedUser).size() > 0}">
                         <table class="table table-hover table-condensed">
@@ -132,9 +131,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
 
