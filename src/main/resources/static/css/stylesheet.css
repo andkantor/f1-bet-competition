@@ -46,3 +46,11 @@ body {
 .race-summary {
     font-size: 20px;
 }
+
+.watched-user-bet {
+    padding: 10px;
+}
+
+.watched-user-bet table {
+    margin: 0;
+}
