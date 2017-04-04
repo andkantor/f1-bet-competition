@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -52,7 +53,9 @@ public class RaceController extends BaseController {
                 .map(Watch::getWatched)
                 .collect(toMap(
                         watched -> watched,
-                        watched -> betRepository.findByUserAndRace(watched, race)));
+                        watched -> betRepository.findByUserAndRace(watched, race),
+                        (w1, w2) -> { throw new RuntimeException("Duplicate found"); },
+                        TreeMap::new));
 
         model.addAttribute("race", race);
         model.addAttribute("bets", userBets);

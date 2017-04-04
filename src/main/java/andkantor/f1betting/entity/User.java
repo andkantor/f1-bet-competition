@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Comparable<User> {
 
     @Id
     @Column(name = "username", unique = true, nullable = false, length = 45)
@@ -84,5 +84,10 @@ public class User {
 
     public boolean isAdmin() {
         return username.equals("admin");
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.username.compareTo(o.username);
     }
 }
