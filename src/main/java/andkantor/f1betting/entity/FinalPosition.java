@@ -71,5 +71,24 @@ public class FinalPosition {
     public static class FinalPositionId implements Serializable {
         public Long race;
         public int positionAsInt;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            FinalPositionId that = (FinalPositionId) o;
+
+            if (positionAsInt != that.positionAsInt) return false;
+            return race.equals(that.race);
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = race.hashCode();
+            result = 31 * result + positionAsInt;
+            return result;
+        }
     }
 }

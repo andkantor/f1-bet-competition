@@ -56,5 +56,24 @@ public class RacePoint {
     public static class RacePointId implements Serializable {
         public String user;
         public Long race;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            RacePointId that = (RacePointId) o;
+
+            if (!user.equals(that.user)) return false;
+            return race.equals(that.race);
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = user.hashCode();
+            result = 31 * result + race.hashCode();
+            return result;
+        }
     }
 }

@@ -79,5 +79,26 @@ public class Penalty {
         public Long race;
         public Long driver;
         public int positionAsInt;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            PenaltyId penaltyId = (PenaltyId) o;
+
+            if (positionAsInt != penaltyId.positionAsInt) return false;
+            if (!race.equals(penaltyId.race)) return false;
+            return driver.equals(penaltyId.driver);
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = race.hashCode();
+            result = 31 * result + driver.hashCode();
+            result = 31 * result + positionAsInt;
+            return result;
+        }
     }
 }
