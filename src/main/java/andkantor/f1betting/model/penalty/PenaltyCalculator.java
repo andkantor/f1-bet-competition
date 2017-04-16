@@ -23,12 +23,17 @@ public class PenaltyCalculator {
     }
 
     public boolean canCalculatePenalties(Race race) {
-        return dataProvider.getPreviousRaces(race).size() >= 3;
+        List<Race> previousRaces = dataProvider.getPreviousRaces(race);
+        return canCalculatePenalties(previousRaces);
     }
 
     public List<Penalty> calculatePenalties(Race race) {
         List<Race> previousRaces = dataProvider.getPreviousRaces(race);
-        List<RaceResult> raceResults = dataProvider.createRaceResults(previousRaces);
+        if (!canCalculatePenalties(previousRaces)) {
+            throw new RuntimeException("At least three previous race is needed to calculate penalties");
+        }
+
+        List<RaceResult> raceResults = dataProvider.createRaceResults(previousRaces.subList(0, 3));
 
         HashSet<Driver> drivers = new HashSet<>();
         raceResults.forEach(raceResult -> drivers.addAll(raceResult.getDrivers()));
@@ -59,6 +64,13 @@ public class PenaltyCalculator {
         });
 
         return penalties;
+    }
+
+    private boolean canCalculatePenalties(List<Race> previousRaces) {
+        return previousRaces.size() >= 3
+                && previousRaces.get(0).isResultSet()
+                && previousRaces.get(1).isResultSet()
+                && previousRaces.get(2).isResultSet();
     }
 
     private Penalty createPenalty(Race race, Driver driver, int position, int point) {

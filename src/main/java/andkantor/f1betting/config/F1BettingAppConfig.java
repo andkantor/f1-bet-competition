@@ -36,6 +36,9 @@ public class F1BettingAppConfig {
     PenaltyRepository penaltyRepository;
 
     @Autowired
+    RaceRepository raceRepository;
+
+    @Autowired
     FinalPositionRepository finalPositionRepository;
 
     @Bean
@@ -80,6 +83,6 @@ public class F1BettingAppConfig {
 
     @Bean
     public PenaltyCalculator penaltyCalculator() {
-        return new PenaltyCalculator(new CalculationDataProvider(finalPositionRepository));
+        return new PenaltyCalculator(new CalculationDataProvider(raceRepository, finalPositionRepository));
     }
 }
