@@ -75,6 +75,29 @@ public class Penalty {
         this.positionAsInt = positionAsInt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Penalty penalty = (Penalty) o;
+
+        if (positionAsInt != penalty.positionAsInt) return false;
+        if (!race.equals(penalty.race)) return false;
+        if (!driver.equals(penalty.driver)) return false;
+        return point.equals(penalty.point);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = race.hashCode();
+        result = 31 * result + driver.hashCode();
+        result = 31 * result + positionAsInt;
+        result = 31 * result + point.hashCode();
+        return result;
+    }
+
     public static class PenaltyId implements Serializable {
         public Long race;
         public Long driver;

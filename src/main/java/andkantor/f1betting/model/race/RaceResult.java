@@ -8,6 +8,8 @@ import andkantor.f1betting.entity.Race;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.stream.Collectors.toList;
+
 public class RaceResult {
 
     private Race race;
@@ -34,6 +36,12 @@ public class RaceResult {
 
     public void setFinalPositions(List<FinalPosition> finalPositions) {
         this.finalPositions = finalPositions;
+    }
+
+    public List<Driver> getDrivers() {
+        return finalPositions.stream()
+                .map(FinalPosition::getDriver)
+                .collect(toList());
     }
 
     public Position getFinalPosition(Driver driver) {

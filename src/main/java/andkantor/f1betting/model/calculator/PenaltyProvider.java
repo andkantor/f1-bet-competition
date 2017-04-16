@@ -28,8 +28,7 @@ public class PenaltyProvider {
                         driver -> driver,
                         driver -> penalties.stream()
                                 .filter(penalty -> penalty.getDriver().equals(driver))
-                                .collect(toMap(Penalty::getPosition, Penalty::getPoint))
-                ));
+                                .collect(toMap(Penalty::getPosition, Penalty::getPoint))));
     }
 
 }
