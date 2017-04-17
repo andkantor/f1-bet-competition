@@ -31,6 +31,9 @@ public class LeaderboardFactory {
     }
 
     private Leaderboard createPreviousLeaderboard(List<User> users, RaceList raceList) {
+        if (raceList.getRaceBeforeLast() == null) {
+            return new EmptyLeaderboard(users);
+        }
         Map<User, CumulativePoint> cumulativePoints = racePointRepository.sumUserPointsUntilRace(
                 users, raceList.getRaceBeforeLast());
 
