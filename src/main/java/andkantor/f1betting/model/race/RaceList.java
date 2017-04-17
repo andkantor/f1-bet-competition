@@ -15,6 +15,7 @@ public class RaceList {
     public RaceList(Season season, List<Race> races) {
         this.season = season;
         this.races = races;
+        this.races.sort((o1, o2) -> o1.getStartDateTime().compareTo(o2.getStartDateTime()));
     }
 
     public Season getSeason() {
@@ -36,6 +37,10 @@ public class RaceList {
         List<Race> result = races.stream()
                 .filter(Race::isResultSet)
                 .collect(toList());
+
+        if (result.isEmpty()) {
+            return null;
+        }
 
         return result.get(result.size() - 1);
     }
