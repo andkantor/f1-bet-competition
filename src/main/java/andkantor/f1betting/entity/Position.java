@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
-public class Position {
+public class Position implements Comparable<Position> {
 
     public static final Position NOT_FINISHED = new Position(-100);
 
@@ -56,5 +56,10 @@ public class Position {
     @Override
     public String toString() {
         return equals(NOT_FINISHED) ? NOT_APPLICABLE : String.valueOf(position);
+    }
+
+    @Override
+    public int compareTo(Position o) {
+        return Integer.compare(position, o.position);
     }
 }

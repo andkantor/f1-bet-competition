@@ -53,7 +53,11 @@ public class RaceController extends BaseController {
                 .map(Watch::getWatched)
                 .collect(toMap(
                         watched -> watched,
-                        watched -> betRepository.findByUserAndRace(watched, race),
+                        watched -> {
+                            List<Bet> bets = betRepository.findByUserAndRace(watched, race);
+                            bets.sort((o1, o2) -> o1.getFinalPosition().compareTo(o2.getFinalPosition()));
+                            return bets;
+                        },
                         (w1, w2) -> { throw new RuntimeException("Duplicate found"); },
                         TreeMap::new));
 
