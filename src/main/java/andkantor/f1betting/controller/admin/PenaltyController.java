@@ -3,6 +3,7 @@ package andkantor.f1betting.controller.admin;
 import andkantor.f1betting.entity.Driver;
 import andkantor.f1betting.entity.Race;
 import andkantor.f1betting.form.PenaltyForm;
+import andkantor.f1betting.model.penalty.PenaltyCalculator;
 import andkantor.f1betting.repository.DriverRepository;
 import andkantor.f1betting.repository.PenaltyRepository;
 import andkantor.f1betting.repository.RaceRepository;
@@ -27,6 +28,22 @@ public class PenaltyController {
 
     @Autowired
     PenaltyRepository penaltyRepository;
+
+    @Autowired
+    PenaltyCalculator penaltyCalculator;
+
+    @RequestMapping(value = "/calculate", method = RequestMethod.GET)
+    public String calculate(@PathVariable Long id) {
+        Race race = raceRepository.findOne(id);
+
+        if (penaltyCalculator.canCalculatePenalties(race)) {
+            penaltyRepository.deleteByRace(race);
+            penaltyCalculator.calculatePenalties(race)
+                    .forEach(penaltyRepository::save);
+        }
+
+        return "redirect:/admin/race/" + id + "/view";
+    }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String edit(@PathVariable Long id, PenaltyForm form, Model model) {
@@ -53,5 +70,4 @@ public class PenaltyController {
 
         return "redirect:/admin/race/" + id + "/view";
     }
-
 }

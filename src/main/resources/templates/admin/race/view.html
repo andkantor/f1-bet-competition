@@ -45,6 +45,7 @@
                 <h3>Penalties</h3>
             </div>
             <div class="pull-right">
+                <a class="btn btn-primary" th:href="@{/admin/race/{id}/penalties/calculate(id=${race.id})}">Calculate</a>
                 <a class="btn btn-primary" th:href="@{/admin/race/{id}/penalties/edit(id=${race.id})}" th:text="${penalties.size()} == 0 ? 'Add' : 'Edit'"></a>
             </div>
         </div>
