@@ -28,14 +28,13 @@ public interface RacePointRepository extends CrudRepository<RacePoint, RacePoint
     default Map<User, CumulativePoint> sumUserPoints(List<User> users, Season season) {
         Map<String, CumulativePoint> points = sumUserPoints(season).stream()
                 .map(objects -> new CumulativePoint(String.valueOf(objects[0]), (BigDecimal) objects[1]))
-                .collect(Collectors.toMap(CumulativePoint::getUsername,
-                        cp -> cp));
+                .collect(Collectors.toMap(CumulativePoint::getUsername, cp -> cp));
 
         return users.stream()
                 .collect(Collectors.toMap(user -> user, user ->
-                    points.containsKey(user.getUsername())
-                            ? points.get(user.getUsername())
-                            : new CumulativePoint(user.getUsername(), BigDecimal.ZERO)
+                        points.containsKey(user.getUsername())
+                                ? points.get(user.getUsername())
+                                : new CumulativePoint(user.getUsername(), BigDecimal.ZERO)
                 ));
     }
 
@@ -51,13 +50,12 @@ public interface RacePointRepository extends CrudRepository<RacePoint, RacePoint
     List<Object[]> sumUserPointsUntil(Season season, String startDateTime);
 
     default Map<User, CumulativePoint> sumUserPointsUntilRace(List<User> users, Race race) {
-        Map<String, CumulativePoint> points = sumUserPointsUntil(
-                race.getSeason(),
-                race.getStartDateTime().format(DATE_TIME_FORMATTER))
-                .stream()
+        Season season = race.getSeason();
+        String startDateTime = race.getStartDateTime().format(DATE_TIME_FORMATTER);
+
+        Map<String, CumulativePoint> points = sumUserPointsUntil(season, startDateTime).stream()
                 .map(objects -> new CumulativePoint(String.valueOf(objects[0]), (BigDecimal) objects[1]))
-                .collect(Collectors.toMap(CumulativePoint::getUsername,
-                        cp -> cp));
+                .collect(Collectors.toMap(CumulativePoint::getUsername, cp -> cp));
 
         return users.stream()
                 .collect(Collectors.toMap(user -> user, user ->
