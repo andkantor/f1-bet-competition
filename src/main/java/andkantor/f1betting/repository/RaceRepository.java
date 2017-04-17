@@ -10,4 +10,6 @@ public interface RaceRepository extends CrudRepository<Race, Long> {
 
     List<Race> findBySeason(Season season);
 
+    List<Race> findBySeasonOrderByStartDateTime(Season season);
+
 }

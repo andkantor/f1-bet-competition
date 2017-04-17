@@ -40,7 +40,18 @@
                         <tbody>
                         <tr th:each="user, stat : ${leaderboard.users}"
                             th:class="${user.username == #authentication.name ? 'logged-in-user' : ''}">
-                            <td th:text="${leaderboard.getPlace(user)}"></td>
+                            <td>
+                                <span th:text="${leaderboard.getPlace(user)}"></span>
+                                <span class="place-change"> (<span
+                                        th:if="${leaderboard.noPlaceChange(user)}">-</span><span
+                                        th:if="${leaderboard.movedUp(user)}"
+                                          class="place-change-up"
+                                          th:text="${'+' + leaderboard.getPlaceChange(user)}"></span><span
+                                        th:if="${leaderboard.movedDown(user)}"
+                                          class="place-change-down"
+                                          th:text="${leaderboard.getPlaceChange(user)}"></span>)
+                                </span>
+                            </td>
                             <td>
                                 <span th:text="${user.username}"></span>
                                 <button class="btn btn-xs btn-default watch-btn"

@@ -26,7 +26,7 @@ body {
 }
 
 .th-counter {
-    width: 50px;
+    width: 70px;
 }
 
 .logged-in-user {
@@ -53,4 +53,16 @@ body {
 
 .watched-user-bet table {
     margin: 0;
+}
+
+.place-change {
+    opacity: 0.5;
+}
+
+.place-change-up {
+    color: green;
+}
+
+.place-change-down {
+    color: red;
 }

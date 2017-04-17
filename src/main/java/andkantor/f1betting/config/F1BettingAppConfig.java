@@ -2,6 +2,7 @@ package andkantor.f1betting.config;
 
 import andkantor.f1betting.model.DateTimeFormatter;
 import andkantor.f1betting.model.Flash;
+import andkantor.f1betting.model.leaderboard.LeaderboardFactory;
 import andkantor.f1betting.model.calculator.*;
 import andkantor.f1betting.model.penalty.PenaltyCalculator;
 import andkantor.f1betting.model.penalty.CalculationDataProvider;
@@ -40,6 +41,9 @@ public class F1BettingAppConfig {
 
     @Autowired
     FinalPositionRepository finalPositionRepository;
+
+    @Autowired
+    RacePointRepository racePointRepository;
 
     @Bean
     public ConfigurationManager configurationManager() {
@@ -84,5 +88,10 @@ public class F1BettingAppConfig {
     @Bean
     public PenaltyCalculator penaltyCalculator() {
         return new PenaltyCalculator(new CalculationDataProvider(raceRepository, finalPositionRepository));
+    }
+
+    @Bean
+    public LeaderboardFactory leaderboardFactory() {
+        return new LeaderboardFactory(configurationManager(), racePointRepository);
     }
 }

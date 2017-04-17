@@ -10,7 +10,7 @@ public class DateTimeFormatter {
 
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
 
-    private java.time.format.DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+    public static final java.time.format.DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .append(ISO_LOCAL_DATE)
             .appendLiteral(' ')
@@ -18,7 +18,7 @@ public class DateTimeFormatter {
             .toFormatter();
 
     public String format(LocalDateTime dateTime) {
-        return dateTime.format(formatter);
+        return dateTime.format(DATE_TIME_FORMATTER);
     }
 
 }
