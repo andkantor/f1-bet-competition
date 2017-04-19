@@ -41,6 +41,7 @@ public class RaceResult {
     public List<Driver> getDrivers() {
         return finalPositions.stream()
                 .map(FinalPosition::getDriver)
+                .filter(driver -> driver != null)
                 .collect(toList());
     }
 
