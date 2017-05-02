@@ -45,7 +45,7 @@ public class PenaltyCalculatorTest {
     }
 
     @Test
-    public void calculateShouldReturnPenaltyPointsWhenPenaltyFound() {
+    public void calculateShouldReturnPenaltyPointsWhenHit() {
         //given
         doReturn(createPosition(1)).when(bet).getFinalPosition();
         Point expectedPoints = new Point(-6);
@@ -58,9 +58,22 @@ public class PenaltyCalculatorTest {
     }
 
     @Test
-    public void calculateShouldReturnZeroWhenPenaltyNotFound() {
+    public void calculateShouldReturnPenaltyPointsWhenNearMiss() {
         //given
         doReturn(createPosition(2)).when(bet).getFinalPosition();
+        Point expectedPoints = new Point(-6);
+
+        //when
+        Point actualPoints = underTest.calculate(bet, context);
+
+        //then
+        assertThat(actualPoints).isEqualTo(expectedPoints);
+    }
+
+    @Test
+    public void calculateShouldReturnZeroWhenNoHitNoNearMiss() {
+        //given
+        doReturn(createPosition(3)).when(bet).getFinalPosition();
         Point expectedPoints = ZERO;
 
         //when

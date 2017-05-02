@@ -76,9 +76,10 @@ public class BetPointCalculatorIntegrationTest {
         return Arrays.asList(new Object[][] {
                         {driver2, createPosition(2), HIT},
                         {driver2, createPosition(1), NEAR_MISS},
+                        {driver2, createPosition(3), NEAR_MISS},
                         {driver4, createPosition(2), ZERO},
                         {driver1, createPosition(1), HIT.add(PENALTY_POINTS)},
-                        {driver2, createPosition(3), NEAR_MISS.add(PENALTY_POINTS)},
+                        {driver1, createPosition(2), NEAR_MISS.add(PENALTY_POINTS)},
                         {driver4, createPosition(1), ZERO},
             });
     }

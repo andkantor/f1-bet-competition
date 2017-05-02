@@ -12,7 +12,7 @@ public class PenaltyCalculator implements PointCalculator {
         Position finalPosition = context.getPosition(bet.getDriver());
 
         if (bet.getFinalPosition().difference(finalPosition) < 2) {
-            return context.getPenalty(bet.getDriver(), bet.getFinalPosition())
+            return context.getPenalty(bet.getDriver(), finalPosition)
                     .map(Penalty::getPoint)
                     .orElse(Point.ZERO);
         }
