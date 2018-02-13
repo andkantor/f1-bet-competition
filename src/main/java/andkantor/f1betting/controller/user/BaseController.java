@@ -28,7 +28,11 @@ public class BaseController {
 
     protected User getUser() {
         String name = getAuthentication().getName();
-        return userRepository.findByUsername(name);
+        User user = userRepository.findByUsername(name);
+        if (user == null) {
+            throw new IllegalArgumentException("Cannot find user with username: " + name);
+        }
+        return user;
     }
 
     private Authentication getAuthentication() {
